@@ -1,876 +1,814 @@
 /**
  * game.css - Dedicated Stylesheet for Interactive 2D Platformer Resume
- * Algorithm Odyssey: The Neural Path (SITE 1101)
+ * Algorithm Odyssey: Original Gemini Canvas Engine
  *
  * Scope:
- * - Game Header Bar with persistent CV exit
- * - Responsive 2D Game Stage & Parallax World Layers
- * - 4 Themed Level Environments (Education, Skills, Projects, Career Goals)
- * - Ground Track, Vector Scout Spawn Placeholder, Checkpoint Pedestals
- * - Heads-Up Display (HUD): Quick Jump, Directional D-Pad, Action Controls
- * - Semantic Checkpoint Inspector Panel
- * - Responsive Adaptations & Print Isolation
+ * - Standalone scoped glassmorphic container (16:9 aspect ratio)
+ * - Top HUD navigation & World Jump tabs
+ * - Interactive action prompt overlay
+ * - Desktop key tips & mobile touch D-Pad
+ * - Milestone Inspector modal, Final Stadium Scoreboard, CV Viewer modal
+ * - Print isolation (@media print)
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
 /* ==========================================================================
-   1. Game Container & Shell
+   1. Shell & Container Isolation
    ========================================================================== */
 
 #neural-path-foundation {
   width: 100%;
-  margin-bottom: var(--space-12);
-  font-family: var(--font-sans);
+  margin-bottom: var(--space-8);
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
 }
 
-.game-shell {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
-}
-
-/* ==========================================================================
-   2. Game Header Bar
-   ========================================================================== */
-
-.game-header-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  padding: var(--space-4) var(--space-6);
-  background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.game-title-group {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.game-badge {
-  display: inline-flex;
-  align-items: center;
-  align-self: flex-start;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  background-color: var(--color-accent-subtle);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-}
-
-.game-title {
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  color: var(--color-text-primary);
-  margin: 0;
-  line-height: var(--line-height-tight);
-}
-
-.game-header-meta {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-}
-
-.current-level-indicator {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
-  background-color: var(--color-bg);
-  padding: 6px 12px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-border);
-}
-
-.indicator-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--color-success);
-  box-shadow: 0 0 8px var(--color-success);
-  animation: pulse-beacon 2s infinite ease-in-out;
-}
-
-.indicator-label {
-  color: var(--color-text-muted);
-}
-
-.current-level-indicator strong {
-  color: var(--color-text-primary);
-  font-weight: 600;
-}
-
-.game-return-cv-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-/* ==========================================================================
-   3. 2D Game Stage Viewport
-   ========================================================================== */
-
-.game-stage-wrapper {
-  position: relative;
-  width: 100%;
-  background-color: #070B14; /* Immersive cyber sky canvas */
-  border-bottom: 1px solid var(--color-border);
-  overflow: hidden;
-}
-
-.game-stage {
-  position: relative;
-  width: 100%;
-  height: 380px;
-  overflow: hidden;
-  outline: none;
-  cursor: grab;
+#neural-path-foundation * {
+  box-sizing: border-box;
   user-select: none;
   -webkit-user-select: none;
 }
 
-.game-stage:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: -2px;
-}
-
-/* Parallax World Stage Container holding the 4 Zones */
-.stage-world {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 48px); /* Height above ground rail */
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  pointer-events: none;
-}
-
-/* Base Level Zone Block */
-.level-zone {
+.game-container {
   position: relative;
-  height: 100%;
-  overflow: hidden;
-  border-right: 1px dashed rgba(255, 255, 255, 0.12);
-}
-
-.level-zone:last-child {
-  border-right: none;
-}
-
-.zone-sky {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-.zone-scenery {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  pointer-events: none;
-}
-
-.zone-label-marker {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  background-color: rgba(11, 15, 25, 0.75);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  padding: 4px 10px;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  pointer-events: auto;
-}
-
-.zone-number {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--color-accent);
-  text-transform: uppercase;
-}
-
-.zone-name {
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  color: #FFFFFF;
-}
-
-.zone-topic {
-  font-size: 0.65rem;
-  color: #94A3B8;
-}
-
-/* ==========================================================================
-   4. Four Themed Environmental Zones
-   ========================================================================== */
-
-/* Zone 1: Academic Quad (Education & Foundations) */
-.zone-education .zone-sky {
-  background: linear-gradient(180deg, #0B132B 0%, #1C2541 65%, #2A3B5C 100%);
-}
-
-.campus-silhouette {
-  height: 120px;
-  background:
-    radial-gradient(ellipse at 50% 100%, rgba(99, 102, 241, 0.15), transparent 70%),
-    linear-gradient(180deg, transparent 40%, rgba(15, 23, 42, 0.8) 100%);
-}
-
-.campus-arch {
-  position: absolute;
-  bottom: 0;
-  left: 30%;
-  width: 48px;
-  height: 54px;
-  border: 3px solid rgba(99, 102, 241, 0.4);
-  border-bottom: none;
-  border-radius: 24px 24px 0 0;
-  background-color: rgba(99, 102, 241, 0.05);
-}
-
-.data-tree {
-  position: absolute;
-  bottom: 0;
-  width: 20px;
-  height: 40px;
-  background-color: rgba(16, 185, 129, 0.2);
-  border-radius: 10px 10px 0 0;
-  border: 1px solid rgba(16, 185, 129, 0.5);
-}
-.tree-1 { left: 10%; height: 35px; }
-.tree-2 { right: 15%; height: 45px; }
-
-/* Zone 2: The Core Logic Vault (Skills & Mathematics) */
-.zone-skills .zone-sky {
-  background: linear-gradient(180deg, #090D1A 0%, #131238 65%, #1E1B4B 100%);
-}
-
-.vault-silhouette {
-  height: 140px;
-  background:
-    repeating-linear-gradient(90deg, rgba(6, 182, 212, 0.04) 0px, rgba(6, 182, 212, 0.04) 20px, transparent 20px, transparent 40px),
-    linear-gradient(180deg, transparent 50%, rgba(10, 15, 29, 0.9) 100%);
-}
-
-.cyber-pillar {
-  position: absolute;
-  bottom: 0;
-  width: 18px;
-  background: linear-gradient(180deg, rgba(6, 182, 212, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
-  border: 1px solid rgba(6, 182, 212, 0.5);
-  box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
-}
-.pillar-1 { left: 18%; height: 75px; }
-.pillar-2 { right: 20%; height: 90px; }
-
-.data-bus-graphic {
-  position: absolute;
-  bottom: 15px;
-  left: 20%;
-  right: 20%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-cyan), transparent);
-}
-
-/* Zone 3: Innovation Lab (Applied Projects & Coursework) */
-.zone-projects .zone-sky {
-  background: linear-gradient(180deg, #08101F 0%, #062828 65%, #064E3B 100%);
-}
-
-.lab-silhouette {
-  height: 120px;
-  background:
-    radial-gradient(circle at 60% 80%, rgba(16, 185, 129, 0.12), transparent 60%),
-    linear-gradient(180deg, transparent 40%, rgba(6, 30, 25, 0.9) 100%);
-}
-
-.sensor-pod {
-  position: absolute;
-  bottom: 0;
-  width: 32px;
-  height: 48px;
-  border-radius: 16px 16px 0 0;
-  border: 2px solid rgba(16, 185, 129, 0.4);
-  background-color: rgba(16, 185, 129, 0.08);
-}
-.pod-1 { left: 15%; }
-.pod-2 { right: 25%; }
-
-.hardware-rack {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 40px;
-  height: 60px;
-  border: 1px dashed rgba(245, 158, 11, 0.5);
-  background-color: rgba(245, 158, 11, 0.05);
-}
-
-/* Zone 4: Dawn Observatory (Career Goals & Horizons) */
-.zone-goals .zone-sky {
-  background: linear-gradient(180deg, #100E2E 0%, #1F194C 50%, #312E81 80%, #4338CA 100%);
-}
-
-.observatory-silhouette {
-  height: 130px;
-  background:
-    radial-gradient(circle at 80% 40%, rgba(245, 158, 11, 0.25), transparent 50%),
-    linear-gradient(180deg, transparent 50%, rgba(30, 27, 75, 0.95) 100%);
-}
-
-.telescope-dome {
-  position: absolute;
-  bottom: 0;
-  left: 30%;
-  width: 60px;
-  height: 45px;
-  border-radius: 30px 30px 0 0;
-  border: 2px solid rgba(199, 210, 254, 0.5);
-  background-color: rgba(99, 102, 241, 0.15);
-}
-
-.horizon-array {
-  position: absolute;
-  bottom: 12px;
-  left: 65%;
-  width: 30px;
-  height: 50px;
-  border-left: 2px solid rgba(245, 158, 11, 0.6);
-  border-top: 2px solid rgba(245, 158, 11, 0.6);
-}
-
-/* ==========================================================================
-   5. Continuous Ground Track & Rail
-   ========================================================================== */
-
-.stage-ground {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 48px;
-  background: linear-gradient(180deg, #0F172A 0%, #020617 100%);
-  z-index: 10;
-  border-top: 3px solid var(--color-accent);
-  box-shadow: 0 -2px 12px rgba(99, 102, 241, 0.4);
-}
-
-.ground-rail {
-  position: absolute;
-  top: 3px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg,
-    var(--color-accent) 0%,
-    var(--color-cyan) 30%,
-    var(--color-success) 65%,
-    var(--color-warning) 100%
-  );
-  opacity: 0.9;
-}
-
-.ground-texture {
-  position: absolute;
-  inset: 0;
-  opacity: 0.15;
-  background-image: repeating-linear-gradient(45deg, #FFFFFF 0px, #FFFFFF 2px, transparent 2px, transparent 8px);
-}
-
-/* ==========================================================================
-   6. Character Spawn Position Placeholder ("Vector Scout")
-   ========================================================================== */
-
-.character-spawn-placeholder {
-  position: absolute;
-  bottom: 48px; /* Resting exactly on top of the ground track */
-  left: 32px;
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  pointer-events: none;
-  animation: float-idle 3s infinite ease-in-out;
-}
-
-.spawn-beacon-ring {
-  position: absolute;
-  bottom: -4px;
-  width: 48px;
-  height: 12px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(99, 102, 241, 0.5), transparent 70%);
-  border: 1px solid rgba(99, 102, 241, 0.6);
-  animation: pulse-beacon 2s infinite ease-in-out;
-}
-
-.character-avatar-silhouette {
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
-}
-
-.character-spawn-label {
-  margin-top: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(4px);
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-accent);
-}
-
-.character-spawn-label span {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  white-space: nowrap;
-}
-
-.character-spawn-label small {
-  font-size: 0.5625rem;
-  color: var(--color-cyan);
-  text-transform: uppercase;
-  font-family: var(--font-mono);
-  letter-spacing: 0.05em;
-}
-
-/* ==========================================================================
-   7. Checkpoint Markers & Pedestals
-   ========================================================================== */
-
-.checkpoint-marker {
-  position: absolute;
-  bottom: 0;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  pointer-events: auto;
-  transition: transform var(--transition-fast);
-}
-
-.checkpoint-marker:hover,
-.checkpoint-marker:focus-visible {
-  transform: translateY(-4px);
-}
-
-.checkpoint-beacon {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: var(--color-cyan);
-  box-shadow: 0 0 10px var(--color-cyan);
-  margin-bottom: 2px;
-}
-
-.checkpoint-marker.is-target-goal .checkpoint-beacon {
-  background-color: var(--color-warning);
-  box-shadow: 0 0 12px var(--color-warning);
-}
-
-.checkpoint-flag {
-  font-family: var(--font-mono);
-  font-size: 0.5625rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  background-color: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1px 6px;
-  border-radius: var(--radius-sm);
-  white-space: nowrap;
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 4px;
-}
-
-.checkpoint-marker.is-target-goal .checkpoint-flag {
-  border-style: dashed;
-  border-color: var(--color-warning);
-  color: var(--color-warning);
-}
-
-.checkpoint-pedestal {
-  font-size: 0.625rem;
-  font-weight: 600;
-  color: #94A3B8;
-  background-color: #0F172A;
-  border-top: 2px solid var(--color-accent);
-  padding: 2px 6px;
-  border-radius: 2px 2px 0 0;
-  white-space: nowrap;
-}
-
-.checkpoint-marker.is-target-goal .checkpoint-pedestal {
-  border-top-color: var(--color-warning);
-  border-top-style: dashed;
-}
-
-/* ==========================================================================
-   8. Heads-Up Display (HUD) Controls Bar
-   ========================================================================== */
-
-.game-hud {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  padding: var(--space-4) var(--space-6);
-  background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.hud-group {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-}
-
-.hud-label {
-  font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* Quick Jump Navigation */
-.hud-quick-jump {
-  justify-content: space-between;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: var(--space-3);
-}
-
-.quick-jump-buttons {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.hud-jump-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--font-size-xs);
-  min-height: 40px;
-  padding: 6px 14px;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
-}
-
-.hud-jump-btn.active {
-  background-color: var(--color-accent);
-  color: #FFFFFF;
-  border-color: var(--color-accent);
-}
-
-.jump-num {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  padding: 1px 5px;
-  border-radius: var(--radius-sm);
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-/* Touch & Visual Controls Layout */
-.hud-actions-group {
-  justify-content: space-between;
   width: 100%;
-}
-
-.hud-dpad,
-.hud-action-buttons {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.hud-btn {
-  display: inline-flex;
+  max-width: 1080px;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid #1e293b;
+  background-color: #020617;
+  color: #f8fafc;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  display: flex;
   flex-direction: column;
+}
+
+/* Fallback for browsers that don't support aspect-ratio */
+@supports not (aspect-ratio: 16 / 9) {
+  .game-container {
+    height: 607px;
+  }
+}
+
+/* ==========================================================================
+   2. Canvas
+   ========================================================================== */
+
+canvas#gameCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  background: #020617;
+}
+
+/* ==========================================================================
+   3. Glassmorphic Surface Classes
+   ========================================================================== */
+
+.glass-panel {
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+}
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+  color: #f8fafc;
+}
+
+/* ==========================================================================
+   4. Top HUD Navigation Bar
+   ========================================================================== */
+
+.game-hud-top {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 30;
+  gap: 8px;
+}
+
+.hud-left-group, .hud-right-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.hud-badge-panel {
+  padding: 6px 12px;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.hud-kit-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, #9f1239 0%, #1e1b4b 50%, #1d4ed8 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 52px;
-  min-height: 52px; /* Minimum 48px touch target satisfied */
-  padding: 8px 14px;
-  border-radius: var(--radius-md);
-  background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.hud-kit-num {
+  font-size: 11px;
+  font-weight: 900;
+  color: #fde047;
+  line-height: 1;
+}
+
+.hud-player-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: 0.025em;
+  line-height: 1.2;
+}
+
+.hud-location-text {
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-ping-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: #38bdf8;
+  animation: pingDot 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes pingDot {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Quick World Jump Menu */
+.world-jump-menu {
+  display: flex;
+  align-items: center;
+  border-radius: 0.75rem;
+  padding: 4px;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+.world-tab-btn {
+  padding: 4px 10px;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--transition-fast);
-  user-select: none;
-  -webkit-user-select: none;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
 }
 
-.hud-btn:hover {
-  background-color: var(--color-surface-hover);
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+.world-tab-btn:hover {
+  background: rgba(30, 41, 59, 0.6);
+  color: #fff;
 }
 
-.hud-btn:active {
-  transform: scale(0.96);
+.world-tab-btn.active-world-tab {
+  background: rgba(37, 99, 235, 0.35);
+  color: #7dd3fc;
+  border-color: rgba(56, 189, 248, 0.4);
 }
 
-.hud-btn-action {
-  min-width: 76px;
-  background-color: var(--color-accent-subtle);
-  border-color: var(--color-accent);
-  color: var(--color-text-primary);
-}
-
-.hud-btn-title {
-  font-size: 0.6875rem;
+/* HUD Utility Buttons */
+.hud-util-btn {
+  padding: 6px 12px;
+  border-radius: 0.75rem;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: inherit;
 }
 
-.hud-key-hint {
-  font-family: var(--font-mono);
-  font-size: 0.5625rem;
-  color: var(--color-text-muted);
+.hud-util-btn-resume {
+  color: #fde047;
+  border-color: rgba(245, 158, 11, 0.3);
 }
 
-/* Progress Bar */
-.hud-status-bar {
+.hud-util-btn-resume:hover {
+  background: rgba(30, 41, 59, 0.9);
+  color: #fef08a;
+  border-color: rgba(245, 158, 11, 0.6);
+}
+
+.hud-util-btn-restart {
+  color: #fda4af;
+  border-color: rgba(244, 63, 94, 0.25);
+}
+
+.hud-util-btn-restart:hover {
+  background: rgba(76, 5, 25, 0.7);
+  color: #fff;
+}
+
+/* ==========================================================================
+   5. Interactive Prompt Floating Overlay
+   ========================================================================== */
+
+#interactPrompt {
+  position: absolute;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  padding: 8px 16px;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  border-color: rgba(56, 189, 248, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20;
+}
+
+#interactPrompt.prompt-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) scale(1);
+  animation: pulseGlow 1.4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.9));
+  }
+}
+
+.prompt-key-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  background-color: #0ea5e9;
+  color: #020617;
+  font-weight: 900;
+  font-size: 11px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.prompt-label-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+/* ==========================================================================
+   6. Bottom Controls Bar (Desktop Tips & Mobile Touch)
+   ========================================================================== */
+
+.game-controls-bottom {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.desktop-key-tips {
+  display: flex;
+  padding: 6px 12px;
+  border-radius: 0.75rem;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  color: #cbd5e1;
+}
+
+.tip-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tip-label {
+  color: #94a3b8;
+}
+
+.key-badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.key-badge-sky { color: #38bdf8; }
+.key-badge-emerald { color: #34d399; }
+.key-badge-amber { color: #fde047; }
+
+.tip-divider {
+  width: 1px;
+  height: 12px;
+  background-color: #334155;
+}
+
+/* Mobile Touch Buttons */
+.mobile-touch-bar {
+  display: none;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+  pointer-events: auto;
+}
+
+.touch-btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+.touch-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.touch-btn:active {
+  background-color: rgba(14, 165, 233, 0.4);
+  transform: scale(0.92);
+}
+
+.touch-btn-action {
+  border-color: rgba(251, 191, 36, 0.4);
+  color: #fde047;
+  font-size: 14px;
+}
+
+.touch-btn-jump {
+  border-color: rgba(52, 211, 153, 0.4);
+  color: #34d399;
+}
+
+/* ==========================================================================
+   7. Modals: Inspector, Victory Scoreboard & CV Viewer
+   ========================================================================== */
+
+.game-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.game-modal-backdrop.modal-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.game-modal-dialog {
+  max-width: 520px;
+  width: 100%;
+  border-radius: 1.25rem;
+  padding: 24px;
+  position: relative;
+  border-color: rgba(56, 189, 248, 0.3);
+  transform: scale(0.95);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: var(--space-1);
-  width: 100%;
-  border-top: 1px solid var(--color-border);
-  padding-top: var(--space-3);
+  max-height: 85vh;
 }
 
-.hud-progress-meta {
+.game-modal-backdrop.modal-active .game-modal-dialog {
+  transform: scale(1);
+}
+
+/* Modal 1: Inspector */
+.modal-header-row {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  align-items: center;
-  font-size: var(--font-size-xs);
+  border-bottom: 1px solid #1e293b;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
 }
 
-.hud-progress-title {
-  font-family: var(--font-mono);
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-}
-
-.hud-progress-val {
-  font-weight: 600;
-  color: var(--color-text-primary);
-}
-
-.hud-progress-track {
-  width: 100%;
-  height: 6px;
-  background-color: var(--color-bg);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-}
-
-.hud-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-cyan));
-  border-radius: var(--radius-full);
-  transition: width var(--transition-normal);
-}
-
-/* ==========================================================================
-   9. Checkpoint Inspector Panel
-   ========================================================================== */
-
-.checkpoint-inspector-panel {
-  padding: var(--space-6);
-  background-color: var(--color-surface);
-  border-left: 4px solid var(--color-accent);
-}
-
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-3);
-}
-
-.panel-tag-group {
+.modal-header-info {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 12px;
 }
 
-.panel-level-tag {
-  font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
+.modal-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.75rem;
+  background-color: rgba(14, 165, 233, 0.2);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
 }
 
-.panel-close-btn {
-  width: 36px;
-  height: 36px;
-}
-
-.panel-title {
-  font-size: var(--font-size-xl);
+.modal-category-tag {
+  font-size: 10px;
   font-weight: 700;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #38bdf8;
+  font-family: 'JetBrains Mono', monospace;
+  display: block;
 }
 
-.panel-details {
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-4);
+.modal-main-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.25;
+  margin: 2px 0 0 0;
 }
 
-.panel-footer {
-  border-top: 1px solid var(--color-border);
-  padding-top: var(--space-3);
+.modal-close-icon-btn {
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  padding: 4px 8px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.panel-note {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-  font-style: italic;
+.modal-close-icon-btn:hover {
+  color: #fff;
+  background: #1e293b;
+}
+
+.modal-body-scrollable {
+  font-size: 13px;
+  color: #cbd5e1;
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 4px;
+}
+
+.modal-summary-text {
+  font-size: 14px;
+  color: #e2e8f0;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.modal-details-box {
+  background-color: rgba(15, 23, 42, 0.6);
+  padding: 12px;
+  border-radius: 0.75rem;
+  border: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-detail-line {
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.modal-footer-row {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.modal-action-btn-primary {
+  padding: 8px 16px;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.modal-action-btn-primary:hover {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  transform: translateY(-1px);
+}
+
+/* Modal 2: Victory Scoreboard */
+.victory-card-dialog {
+  max-width: 380px;
+  width: 100%;
+  border-radius: 1.5rem;
+  padding: 28px 24px;
+  text-align: center;
+  position: relative;
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(245, 158, 11, 0.2);
+}
+
+.victory-ball-avatar {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px auto;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #f59e0b, #e11d48, #4f46e5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  animation: victoryBounce 1s infinite alternate;
+}
+
+@keyframes victoryBounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-8px); }
+}
+
+.victory-goal-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background-color: rgba(251, 191, 36, 0.2);
+  color: #fde047;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.victory-player-name {
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  margin: 12px 0 6px 0;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+.victory-affiliation-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: #7dd3fc;
+  margin: 0 0 2px 0;
+}
+
+.victory-degree-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: #cbd5e1;
+  margin: 0 0 20px 0;
+}
+
+.victory-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.victory-btn {
+  padding: 10px 12px;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.victory-btn-cv {
+  background-color: #f59e0b;
+  color: #020617;
+  font-weight: 900;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+}
+
+.victory-btn-cv:hover {
+  background-color: #fbbf24;
+}
+
+.victory-btn-github {
+  background-color: #1e293b;
+  color: #fff;
+  border: 1px solid #334155;
+}
+
+.victory-btn-github:hover {
+  background-color: #334155;
+}
+
+.victory-btn-linkedin {
+  background-color: #0284c7;
+  color: #fff;
+}
+
+.victory-btn-linkedin:hover {
+  background-color: #0ea5e9;
+}
+
+.victory-btn-contact {
+  background-color: #4f46e5;
+  color: #fff;
+}
+
+.victory-btn-contact:hover {
+  background-color: #6366f1;
+}
+
+.victory-replay-btn {
+  font-size: 12px;
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: inherit;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.victory-replay-btn:hover {
+  color: #fff;
+}
+
+/* Modal 3: CV Viewer */
+.cv-viewer-dialog {
+  max-width: 640px;
+  width: 100%;
+  border-radius: 1.25rem;
+  padding: 24px;
+  position: relative;
+  border-color: #334155;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.cv-section-block {
+  margin-bottom: 16px;
+}
+
+.cv-section-title {
+  color: #38bdf8;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cv-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+  background-color: rgba(15, 23, 42, 0.6);
+  padding: 10px;
+  border-radius: 0.5rem;
+  border: 1px solid #1e293b;
+  font-size: 11px;
+}
+
+.cv-project-card {
+  padding: 8px;
+  border-radius: 0.5rem;
+  background-color: rgba(15, 23, 42, 0.5);
+  border: 1px solid #1e293b;
+  margin-bottom: 8px;
+  font-size: 11px;
+}
+
+/* Custom Scrollbar for Info & CV Panels */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.5);
+  border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.8);
 }
 
 /* ==========================================================================
-   10. Keyframe Animations
+   8. Responsive Layout Adjustments
    ========================================================================== */
 
-@keyframes pulse-beacon {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.8;
+@media (max-width: 768px) {
+  .world-jump-menu {
+    display: none;
   }
-  50% {
-    transform: scale(1.15);
-    opacity: 1;
-  }
-}
 
-@keyframes float-idle {
-  0%, 100% {
-    transform: translateY(0);
+  .desktop-key-tips {
+    display: none;
   }
-  50% {
-    transform: translateY(-4px);
+
+  .mobile-touch-bar {
+    display: flex;
+  }
+
+  #interactPrompt {
+    bottom: 70px;
   }
 }
 
 /* ==========================================================================
-   11. Responsive Adaptations
-   ========================================================================== */
-
-@media (max-width: 900px) {
-  .game-stage {
-    height: 340px;
-  }
-
-  .hud-actions-group {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-3);
-  }
-
-  .hud-dpad,
-  .hud-action-buttons {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 640px) {
-  .game-header-bar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .game-header-meta {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .game-stage {
-    height: 300px;
-  }
-
-  .quick-jump-buttons {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .hud-btn {
-    min-height: 48px;
-    padding: 6px 12px;
-  }
-
-  .checkpoint-flag {
-    display: none; /* Hide dense text flags on small mobile to avoid visual clutter */
-  }
-
-  .zone-label-marker {
-    padding: 2px 6px;
-  }
-}
-
-/* ==========================================================================
-   12. Accessibility & Reduced Motion
-   ========================================================================== */
-
-@media (prefers-reduced-motion: reduce) {
-  .indicator-dot,
-  .spawn-beacon-ring,
-  .character-spawn-placeholder {
-    animation: none !important;
-  }
-
-  .checkpoint-marker {
-    transition: none !important;
-  }
-}
-
-/* ==========================================================================
-   13. Print Stylesheet Isolation
+   9. Print Stylesheet Isolation (Guaranteed Clean Printable CV)
    ========================================================================== */
 
 @media print {
   #neural-path-foundation,
-  .game-shell,
-  .game-header-bar,
-  .game-stage-wrapper,
-  .game-hud,
-  .checkpoint-inspector-panel {
+  .game-container,
+  .game-hud-top,
+  .game-controls-bottom,
+  #interactPrompt,
+  .game-modal-backdrop {
     display: none !important;
   }
 }

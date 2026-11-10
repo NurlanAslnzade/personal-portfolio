@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Native Resolution Preview: Idle & Running</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0B0F19;
+      color: #F8FAFC;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 { font-size: 1.4rem; color: #FFFFFF; margin-bottom: 6px; }
+    p { color: #94A3B8; font-size: 0.875rem; margin-bottom: 24px; }
+    .scale-row {
+      display: flex;
+      gap: 30px;
+      align-items: flex-end;
+      background: #111827;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 30px;
+    }
+    .scale-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: repeating-conic-gradient(#1E293B 0% 25%, #0F172A 0% 50%) 50% / 12px 12px;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .pair {
+      display: flex;
+      gap: 16px;
+      align-items: flex-end;
+    }
+    .lbl {
+      margin-top: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #38BDF8;
+      font-family: ui-monospace, monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>Native Resolution & Scale Inspection: Idle &amp; Running</h1>
+  <p>Detailed verification of hair rendering, kit text ("NURLAN"), facial clarity, and foot placement.</p>
+
+  <div class="scale-row">
+    <!-- 1x Scale (120x140px) -->
+    <div class="scale-box">
+      <div class="pair">
+        <img src="frame_idle.svg" width="120" height="140">
+        <img src="frame_running.svg" width="120" height="140">
+      </div>
+      <div class="lbl">1X NATIVE SCALE (120×140px)</div>
+    </div>
+
+    <!-- 1.5x Scale (180x210px) -->
+    <div class="scale-box">
+      <div class="pair">
+        <img src="frame_idle.svg" width="180" height="210">
+        <img src="frame_running.svg" width="180" height="210">
+      </div>
+      <div class="lbl">1.5X ZOOM (180×210px)</div>
+    </div>
+  </div>
+</body>
+</html>

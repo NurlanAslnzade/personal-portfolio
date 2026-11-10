@@ -379,293 +379,215 @@
       <!-- VIEW 2: Interactive 2D Platformer Resume (Algorithm Odyssey) -->
       <section id="neural-path-foundation" style="display: none;" aria-label="Interactive 2D Platformer Resume: Algorithm Odyssey">
 
-        <div class="game-shell">
-          <!-- 1. Game Header Bar -->
-          <header class="game-header-bar" aria-label="Game Navigation and Status">
-            <div class="game-title-group">
-              <span class="game-badge" aria-hidden="true">2D Interactive Resume</span>
-              <h2 class="game-title">Algorithm Odyssey: The Neural Path</h2>
-            </div>
+        <div class="game-container">
 
-            <div class="game-header-meta">
-              <div class="current-level-indicator" aria-live="polite">
-                <span class="indicator-dot" aria-hidden="true"></span>
-                <span class="indicator-label">Current Zone:</span>
-                <strong id="active-zone-label">Level 1 — Academic Quad</strong>
+          <!-- Top HUD Navigation -->
+          <div class="game-hud-top">
+
+            <!-- Left: Player Profile Badge & World Pill -->
+            <div class="hud-left-group">
+              <div class="glass-panel hud-badge-panel">
+                <div class="hud-kit-icon">
+                  <span class="hud-kit-num">#10</span>
+                </div>
+                <div>
+                  <div class="hud-player-name" id="hudPlayerName">NURLAN</div>
+                  <div class="hud-location-text">
+                    <span class="hud-ping-dot"></span>
+                    <span id="hudLocation">World 1: Academic World</span>
+                  </div>
+                </div>
               </div>
 
-              <!-- Persistent standard CV switcher using mode-toggle-btn -->
-              <button class="mode-toggle-btn btn btn-outline btn-sm game-return-cv-btn" data-mode="conventional" aria-label="Switch back to Standard Printable CV">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                <span>📄 Standard Printable CV</span>
+              <!-- Quick World Jump Menu -->
+              <div class="glass-panel world-jump-menu">
+                <button id="wTab0" class="world-tab-btn active-world-tab">1. Academic</button>
+                <button id="wTab1" class="world-tab-btn">2. Skills</button>
+                <button id="wTab2" class="world-tab-btn">3. Projects</button>
+                <button id="wTab3" class="world-tab-btn">
+                  <span>4. Stadium</span>
+                  <span>⚽</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right: Action Utility Buttons -->
+            <div class="hud-right-group">
+              <button id="openCvBtn" class="glass-panel hud-util-btn hud-util-btn-resume" title="View CV Overview">
+                <span>📄</span>
+                <span>View Resume</span>
+              </button>
+
+              <button id="soundToggle" class="glass-panel hud-util-btn" title="Toggle Sound">
+                <span id="soundIcon">🔊</span>
+              </button>
+
+              <button id="restartBtn" class="glass-panel hud-util-btn hud-util-btn-restart" title="Restart World">
+                <span>↺</span>
               </button>
             </div>
-          </header>
+          </div>
 
-          <!-- 2. Responsive 2D Game Stage Viewport -->
-          <div class="game-stage-wrapper">
-            <div id="game-stage" class="game-stage" tabindex="0" role="region" aria-label="Interactive 2D Resume Stage. Use HUD controls or Quick Jump to inspect milestones.">
+          <!-- Active Canvas Viewport (960x540 native) -->
+          <canvas id="gameCanvas" width="960" height="540"></canvas>
 
-              <!-- 4-Level Parallax World Stage -->
-              <div class="stage-world" id="stage-world" aria-hidden="true">
+          <!-- Interactive Prompt Floating Indicator -->
+          <div id="interactPrompt" class="glass-panel">
+            <kbd class="prompt-key-badge">E</kbd>
+            <span id="interactText" class="prompt-label-text">Inspect Milestone</span>
+          </div>
 
-                <!-- Zone 1: Academic Quad (Education & Scholarships) -->
-                <div class="level-zone zone-education" data-level="1">
-                  <div class="zone-sky"></div>
-                  <div class="zone-scenery">
-                    <div class="scenery-silhouette campus-silhouette"></div>
-                    <div class="scenery-elements">
-                      <span class="data-tree tree-1"></span>
-                      <span class="campus-arch"></span>
-                      <span class="data-tree tree-2"></span>
-                    </div>
-                  </div>
-                  <div class="zone-label-marker">
-                    <span class="zone-number">Zone 01</span>
-                    <span class="zone-name">Academic Quad</span>
-                    <span class="zone-topic">Education &amp; Scholarships</span>
-                  </div>
-
-                  <!-- Checkpoint 01: Heydar Aliyev Lyceum -->
-                  <button type="button" class="checkpoint-marker milestone-node-btn is-selected" role="tab" aria-selected="true"
-                          style="left: 20%;"
-                          data-title="Heydar Aliyev Lyceum (Academic Foundation)"
-                          data-type="Verified Academic Milestone"
-                          data-desc="Graduated from Heydar Aliyev Lyceum in Baku, Azerbaijan with two Certificates of Distinction and a DİM score of 655/700. Strong analytical and mathematical preparation for computer science.">
-                    <span class="checkpoint-beacon"></span>
-                    <span class="checkpoint-flag">DİM 655</span>
-                    <span class="checkpoint-pedestal">Lyceum</span>
-                  </button>
-
-                  <!-- Checkpoint 02: AI Academy & Holberton School -->
-                  <button type="button" class="checkpoint-marker milestone-node-btn" role="tab" aria-selected="false"
-                          style="left: 55%;"
-                          data-title="AI Academy & Holberton School (Scholarships)"
-                          data-type="Competitive Training"
-                          data-desc="Earned a 100% Scholarship at AI Academy (AZCON Holding) studying linear algebra, multivariable calculus, and deep learning, alongside a 90% Scholarship at Holberton School for machine learning software engineering.">
-                    <span class="checkpoint-beacon"></span>
-                    <span class="checkpoint-flag">100% &amp; 90%</span>
-                    <span class="checkpoint-pedestal">Scholarships</span>
-                  </button>
-
-                  <!-- Checkpoint 03: ADA University -->
-                  <button type="button" class="checkpoint-marker milestone-node-btn" role="tab" aria-selected="false"
-                          style="left: 85%;"
-                          data-title="ADA University (Undergraduate Studies)"
-                          data-type="Current Academic Journey (2026–2030)"
-                          data-desc="BSc in Computer Science at ADA University focusing on core data structures, algorithms, mathematical problem-solving, and theoretical foundations.">
-                    <span class="checkpoint-beacon"></span>
-                    <span class="checkpoint-flag">ADA CS</span>
-                    <span class="checkpoint-pedestal">ADA Univ.</span>
-                  </button>
-                </div>
-
-                <!-- Zone 2: The Core Logic Vault (Skills & Foundations) -->
-                <div class="level-zone zone-skills" data-level="2">
-                  <div class="zone-sky"></div>
-                  <div class="zone-scenery">
-                    <div class="scenery-silhouette vault-silhouette"></div>
-                    <div class="scenery-elements">
-                      <span class="cyber-pillar pillar-1"></span>
-                      <span class="data-bus-graphic"></span>
-                      <span class="cyber-pillar pillar-2"></span>
-                    </div>
-                  </div>
-                  <div class="zone-label-marker">
-                    <span class="zone-number">Zone 02</span>
-                    <span class="zone-name">The Core Logic Vault</span>
-                    <span class="zone-topic">Languages &amp; Mathematics</span>
-                  </div>
-
-                  <!-- Checkpoint 04: Applied ML & Core Skills -->
-                  <button type="button" class="checkpoint-marker milestone-node-btn" role="tab" aria-selected="false"
-                          style="left: 50%;"
-                          data-title="Applied Machine Learning & Data Explorations"
-                          data-type="Practical Skills & Analytics"
-                          data-desc="Core technical toolkit including Python, C++, and SQL, alongside predictive modeling in Scikit-Learn (Loan Default & House Price Prediction) and structured data visualization workflows.">
-                    <span class="checkpoint-beacon"></span>
-                    <span class="checkpoint-flag">Python · C++ · ML</span>
-                    <span class="checkpoint-pedestal">Core Stack</span>
-                  </button>
-                </div>
-
-                <!-- Zone 3: Innovation Lab (Applied Projects & Coursework) -->
-                <div class="level-zone zone-projects" data-level="3">
-                  <div class="zone-sky"></div>
-                  <div class="zone-scenery">
-                    <div class="scenery-silhouette lab-silhouette"></div>
-                    <div class="scenery-elements">
-                      <span class="sensor-pod pod-1"></span>
-                      <span class="hardware-rack"></span>
-                      <span class="sensor-pod pod-2"></span>
-                    </div>
-                  </div>
-                  <div class="zone-label-marker">
-                    <span class="zone-number">Zone 03</span>
-                    <span class="zone-name">Innovation Lab</span>
-                    <span class="zone-topic">Verified Projects &amp; Coursework</span>
-                  </div>
-
-                  <!-- Checkpoint 05: Sign Language CV & Coursework -->
-                  <button type="button" class="checkpoint-marker milestone-node-btn" role="tab" aria-selected="false"
-                          style="left: 50%;"
-                          data-title="Sign Language Computer Vision"
-                          data-type="Experimental Domain Exploration"
-                          data-desc="Experimental computer vision project exploring sign language gesture detection and recognition in Python. Also features SITE 1101 Project 1 hardware logic gate construction with verified circuit demonstration.">
-                    <span class="checkpoint-beacon"></span>
-                    <span class="checkpoint-flag">Vision &amp; Hardware</span>
-                    <span class="checkpoint-pedestal">Applied Lab</span>
-                  </button>
-                </div>
-
-                <!-- Zone 4: Dawn Observatory (Career Goals & Contact) -->
-                <div class="level-zone zone-goals" data-level="4">
-                  <div class="zone-sky"></div>
-                  <div class="zone-scenery">
-                    <div class="scenery-silhouette observatory-silhouette"></div>
-                    <div class="scenery-elements">
-                      <span class="telescope-dome"></span>
-                      <span class="horizon-array"></span>
-                    </div>
-                  </div>
-                  <div class="zone-label-marker">
-                    <span class="zone-number">Zone 04</span>
-                    <span class="zone-name">Dawn Observatory</span>
-                    <span class="zone-topic">Future Horizon &amp; Aspirations</span>
-                  </div>
-
-                  <!-- Checkpoint 06: Career Objective (Aspirational Target) -->
-                  <button type="button" class="checkpoint-marker milestone-node-btn is-goal is-target-goal" role="tab" aria-selected="false"
-                          style="left: 55%;"
-                          data-title="Target: Production-Grade ML Engineering"
-                          data-type="Career Aspiration / Target Goal"
-                          data-desc="Committed to establishing a rigorous theoretical foundation and deploying production-level machine learning models. Note: This is an aspirational career target, explicitly distinguished from completed coursework.">
-                    <span class="checkpoint-beacon"></span>
-                    <span class="checkpoint-flag">Aspiration Target</span>
-                    <span class="checkpoint-pedestal">Production ML</span>
-                  </button>
-                </div>
-
-              </div><!-- /.stage-world -->
-
-              <!-- Continuous Ground Track / Data Rail -->
-              <div class="stage-ground" aria-hidden="true">
-                <div class="ground-rail"></div>
-                <div class="ground-texture"></div>
+          <!-- Bottom Mobile & Keyboard Controls Bar -->
+          <div class="game-controls-bottom">
+            <!-- Desktop Key Tips -->
+            <div class="glass-panel desktop-key-tips">
+              <div class="tip-group">
+                <span class="tip-label">Move:</span>
+                <kbd class="key-badge key-badge-sky">A</kbd>
+                <kbd class="key-badge key-badge-sky">D</kbd>
+                <span style="color: #64748b;">/</span>
+                <kbd class="key-badge key-badge-sky">←</kbd>
+                <kbd class="key-badge key-badge-sky">→</kbd>
               </div>
-
-              <!-- Character Spawn Position Placeholder ("Vector Scout" marker for Phase 1) -->
-              <div id="character-spawn" class="character-spawn-placeholder" aria-label="Character spawn position: Vector Scout">
-                <div class="spawn-beacon-ring"></div>
-                <div class="character-avatar-silhouette">
-                  <svg width="44" height="60" viewBox="0 0 44 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <!-- Stylized Vector Scout Placeholder Silhouette -->
-                    <circle cx="22" cy="14" r="10" fill="var(--color-accent)"/>
-                    <path d="M12 28 C12 24, 32 24, 32 28 L36 46 L8 46 Z" fill="var(--color-surface-elevated)" stroke="var(--color-accent)" stroke-width="2"/>
-                    <rect x="14" y="46" width="6" height="12" rx="2" fill="var(--color-text-primary)"/>
-                    <rect x="24" y="46" width="6" height="12" rx="2" fill="var(--color-text-primary)"/>
-                    <!-- Backpack accent -->
-                    <rect x="7" y="26" width="6" height="14" rx="2" fill="var(--color-cyan)"/>
-                  </svg>
-                </div>
-                <div class="character-spawn-label">
-                  <span>Vector Scout</span>
-                  <small>Spawn Point</small>
-                </div>
+              <div class="tip-divider"></div>
+              <div class="tip-group">
+                <span class="tip-label">Jump:</span>
+                <kbd class="key-badge key-badge-emerald">Space</kbd>
+                <kbd class="key-badge key-badge-emerald">W</kbd>
               </div>
-
-            </div><!-- /#game-stage -->
-          </div><!-- /.game-stage-wrapper -->
-
-          <!-- 3. Heads-Up Display (HUD) Controls Bar -->
-          <div class="game-hud" role="toolbar" aria-label="Game Navigation and HUD Controls">
-
-            <!-- Quick Jump Navigation across 4 levels -->
-            <div class="hud-group hud-quick-jump">
-              <span class="hud-label">Quick Jump:</span>
-              <div class="quick-jump-buttons" role="group" aria-label="Jump directly to level">
-                <button type="button" class="btn btn-sm btn-outline hud-jump-btn active" data-jump-level="1" aria-label="Level 1: Education">
-                  <span class="jump-num">1</span>
-                  <span class="jump-text">Education</span>
-                </button>
-                <button type="button" class="btn btn-sm btn-outline hud-jump-btn" data-jump-level="2" aria-label="Level 2: Skills">
-                  <span class="jump-num">2</span>
-                  <span class="jump-text">Skills</span>
-                </button>
-                <button type="button" class="btn btn-sm btn-outline hud-jump-btn" data-jump-level="3" aria-label="Level 3: Projects">
-                  <span class="jump-num">3</span>
-                  <span class="jump-text">Projects</span>
-                </button>
-                <button type="button" class="btn btn-sm btn-outline hud-jump-btn" data-jump-level="4" aria-label="Level 4: Goals">
-                  <span class="jump-num">4</span>
-                  <span class="jump-text">Goals</span>
-                </button>
+              <div class="tip-divider"></div>
+              <div class="tip-group">
+                <span class="tip-label">Interact/Kick:</span>
+                <kbd class="key-badge key-badge-amber">E</kbd>
               </div>
             </div>
 
-            <!-- Directional & Action Touch / Visual Controls (Placeholders for Phase 1) -->
-            <div class="hud-group hud-actions-group">
-              <div class="hud-dpad" role="group" aria-label="Directional Movement Controls">
-                <button type="button" class="hud-btn hud-btn-dpad" data-action="left" aria-label="Move Left (Controls active in Phase 2)">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                  <span class="hud-key-hint" aria-hidden="true">A / ←</span>
+            <!-- Mobile On-Screen Touch Buttons -->
+            <div class="mobile-touch-bar">
+              <div class="touch-btn-group">
+                <button id="btnLeft" class="touch-btn glass-panel" aria-label="Move Left">◀</button>
+                <button id="btnRight" class="touch-btn glass-panel" aria-label="Move Right">▶</button>
+              </div>
+              <div class="touch-btn-group">
+                <button id="btnAction" class="touch-btn glass-panel touch-btn-action" aria-label="Interact or Kick">E</button>
+                <button id="btnJump" class="touch-btn glass-panel touch-btn-jump" aria-label="Jump">▲</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODAL 1: Interactive Information Inspector -->
+          <div id="infoModal" class="game-modal-backdrop">
+            <div class="glass-card game-modal-dialog">
+              <div class="modal-header-row">
+                <div class="modal-header-info">
+                  <div id="modalIconBox" class="modal-icon-box">🎓</div>
+                  <div>
+                    <span id="modalCategory" class="modal-category-tag">Academic Milestone</span>
+                    <h3 id="modalTitle" class="modal-main-title">Milestone Title</h3>
+                  </div>
+                </div>
+                <button id="closeInfoBtn" class="modal-close-icon-btn" aria-label="Close modal">✕</button>
+              </div>
+
+              <div id="modalContent" class="modal-body-scrollable custom-scroll">
+              </div>
+
+              <div class="modal-footer-row">
+                <span style="color: #64748b; font-size: 11px;">Press <kbd class="key-badge">Esc</kbd> or click close</span>
+                <button id="modalActionBtn" class="modal-action-btn-primary">Continue Exploration →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODAL 2: World 4 Final Stadium Victory Scoreboard -->
+          <div id="victoryModal" class="game-modal-backdrop">
+            <div class="glass-card victory-card-dialog">
+              <div class="victory-ball-avatar">⚽</div>
+              <span class="victory-goal-pill">GOAL SCORED!</span>
+              <h2 class="victory-player-name">NURLAN</h2>
+              <p class="victory-affiliation-text">ADA University</p>
+              <p class="victory-degree-text">BSc in Computer Science (2026–2030)</p>
+
+              <div class="victory-actions-grid">
+                <button id="victoryViewCvBtn" class="victory-btn victory-btn-cv">
+                  <span>📄</span> View My CV
                 </button>
-                <button type="button" class="hud-btn hud-btn-dpad" data-action="right" aria-label="Move Right (Controls active in Phase 2)">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                  <span class="hud-key-hint" aria-hidden="true">D / →</span>
+                <a href="https://github.com/NurlanAslnzade" target="_blank" rel="noopener noreferrer" class="victory-btn victory-btn-github">
+                  <span>🐙</span> GitHub
+                </a>
+                <a href="https://linkedin.com/in/nurlanaslanzada/" target="_blank" rel="noopener noreferrer" class="victory-btn victory-btn-linkedin">
+                  <span>💼</span> LinkedIn
+                </a>
+                <button id="victoryContactBtn" class="victory-btn victory-btn-contact">
+                  <span>✉️</span> Contact
                 </button>
               </div>
 
-              <div class="hud-action-buttons" role="group" aria-label="Action Controls">
-                <button type="button" class="hud-btn hud-btn-action" data-action="jump" aria-label="Jump (Active in Phase 2)">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                  <span class="hud-btn-title">JUMP</span>
-                  <span class="hud-key-hint" aria-hidden="true">Space</span>
-                </button>
-                <button type="button" class="hud-btn hud-btn-action hud-btn-inspect" data-action="inspect" aria-label="Inspect Checkpoint">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                  <span class="hud-btn-title">INSPECT</span>
-                  <span class="hud-key-hint" aria-hidden="true">E / Enter</span>
-                </button>
+              <button id="victoryReplayBtn" class="victory-replay-btn">Replay Experience ↺</button>
+            </div>
+          </div>
+
+          <!-- MODAL 3: Clean CV / Resume Viewer Modal -->
+          <div id="cvModal" class="game-modal-backdrop">
+            <div class="glass-card cv-viewer-dialog">
+              <div class="modal-header-row">
+                <div>
+                  <h3 style="font-size: 18px; font-weight: 800; color: #fff; margin: 0;">
+                    NURLAN <span style="font-size: 12px; font-weight: 400; color: #94a3b8;">| Curriculum Vitae Overview</span>
+                  </h3>
+                  <p style="font-size: 11px; color: #38bdf8; margin: 2px 0 0 0;">Aspiring AI &amp; Machine Learning Engineer (Baku, Azerbaijan)</p>
+                </div>
+                <button id="closeCvBtn" class="modal-close-icon-btn" aria-label="Close CV viewer">✕</button>
+              </div>
+
+              <div class="modal-body-scrollable custom-scroll">
+                <div class="cv-section-block">
+                  <h4 class="cv-section-title"><span>🏛️</span> Education &amp; Academic Honors</h4>
+                  <ul style="list-style: disc; padding-left: 18px; margin: 0; line-height: 1.6;">
+                    <li><strong>ADA University:</strong> BSc in Computer Science (2026–2030)</li>
+                    <li><strong>State Examination (DİM):</strong> 655 / 700 Points</li>
+                    <li><strong>Heydar Aliyev Lyceum:</strong> High School Diploma with 2 Certificates of Distinction</li>
+                    <li><strong>AI Academy (AZCON Holding):</strong> AI Engineering Program (100% Scholarship)</li>
+                    <li><strong>Holberton School:</strong> Machine Learning Specialization (90% Scholarship)</li>
+                  </ul>
+                </div>
+
+                <div class="cv-section-block">
+                  <h4 class="cv-section-title"><span>⚡</span> Verified Technical Skills</h4>
+                  <div class="cv-skills-grid">
+                    <div><strong style="color: #f1f5f9;">Languages:</strong> Python, C++, SQL</div>
+                    <div><strong style="color: #f1f5f9;">ML / Data:</strong> NumPy, Pandas, Scikit-Learn, TensorFlow</div>
+                    <div><strong style="color: #f1f5f9;">CS Core:</strong> Data Structures &amp; Algorithms, OOP</div>
+                    <div><strong style="color: #f1f5f9;">Math:</strong> Linear Algebra, Multivariable Calculus</div>
+                    <div><strong style="color: #f1f5f9;">Tools:</strong> Git, GitHub, Linux Shell, MySQL, MongoDB</div>
+                    <div><strong style="color: #f1f5f9;">Spoken:</strong> Azerbaijani (Native), English (B2)</div>
+                  </div>
+                </div>
+
+                <div class="cv-section-block">
+                  <h4 class="cv-section-title"><span>🚀</span> Practical Projects &amp; Coursework</h4>
+                  <div class="cv-project-card">
+                    <strong style="color: #fff;">Azerbaijani Sign Language Recognition</strong> (Python, OpenCV, MediaPipe, Deep Learning)
+                    <p style="margin: 2px 0 0 0; color: #94a3b8;">Experimental capstone classifying sign language hand landmarks and dynamic gesture motions.</p>
+                  </div>
+                  <div class="cv-project-card">
+                    <strong style="color: #fff;">Loan Default &amp; House Price Machine Learning Models</strong> (Pandas, Scikit-Learn)
+                    <p style="margin: 2px 0 0 0; color: #94a3b8;">Supervised machine learning, tabular feature preprocessing, and cross-validated predictive analytics.</p>
+                  </div>
+                  <div class="cv-project-card">
+                    <strong style="color: #fff;">SITE 1101: Hardware Logic Gates</strong> (Breadboard circuits)
+                    <p style="margin: 2px 0 0 0; color: #94a3b8;">Built physical electronic circuits demonstrating boolean logic operations (NOT, AND, OR, XOR).</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer-row" style="justify-content: flex-end;">
+                <button id="closeCvBtnFooter" class="modal-action-btn-primary">Close Viewer</button>
               </div>
             </div>
+          </div>
 
-            <!-- Progress Bar -->
-            <div class="hud-group hud-status-bar">
-              <div class="hud-progress-meta">
-                <span class="hud-progress-title">Trajectory:</span>
-                <span class="hud-progress-val" id="hud-progress-val">Zone 1 of 4 · Academic Quad</span>
-              </div>
-              <div class="hud-progress-track" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="Overall Journey Progress">
-                <div class="hud-progress-fill" style="width: 25%;"></div>
-              </div>
-            </div>
-
-          </div><!-- /.game-hud -->
-
-          <!-- 4. Checkpoint Information Panel (Semantic inspector) -->
-          <aside id="checkpoint-inspector" class="checkpoint-inspector-panel" role="region" aria-labelledby="inspect-node-title" aria-live="polite">
-            <div class="panel-header">
-              <div class="panel-tag-group">
-                <span id="inspect-node-type" class="badge badge-accent">Verified Academic Milestone</span>
-                <span class="panel-level-tag">Zone 1 Checkpoint</span>
-              </div>
-              <button type="button" id="close-inspector-btn" class="icon-btn panel-close-btn" aria-label="Close Checkpoint Panel">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-              </button>
-            </div>
-            <div class="panel-body">
-              <h3 id="inspect-node-title" class="panel-title">Heydar Aliyev Lyceum (Academic Foundation)</h3>
-              <p id="inspect-node-details" class="panel-details">
-                Graduated from Heydar Aliyev Lyceum in Baku, Azerbaijan with two Certificates of Distinction and a DİM score of 655/700. Strong analytical and mathematical preparation for computer science.
-              </p>
-            </div>
-            <div class="panel-footer">
-              <small class="panel-note">Click any checkpoint beacon in the stage above to inspect details. Character physics and camera follow will be activated in Phase 2.</small>
-            </div>
-          </aside>
-
-        </div><!-- /.game-shell -->
+        </div><!-- /.game-container -->
 
       </section>
 
@@ -719,5 +641,6 @@
   <!-- Core Scripts -->
   <script type="module" src="./assets/js/main.js"></script>
   <script type="module" src="./assets/js/resume.js"></script>
+  <script src="./assets/js/game.js"></script>
 </body>
 </html>
