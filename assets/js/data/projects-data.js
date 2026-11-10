@@ -66,31 +66,43 @@ export const projectsData = [
     featured: false
   },
 
-  // --- SITE 1101 COURSEWORK (MODULAR - HIDDEN UNTIL DETAILS VERIFIED) ---
+  // --- MANDATORY SITE 1101 COURSEWORK (SECTION A) ---
   {
     id: "site1101-project1",
-    title: "SITE 1101: Project 1",
+    title: "SITE 1101: Project 1 – How Does Hardware Work?",
     category: "site1101",
-    categoryLabel: "SITE 1101 Coursework",
-    public: false, // Hidden until details confirmed
-    statusLabel: "Pending Details",
-    summary: "",
-    description: "",
-    technologies: [],
+    categoryLabel: "Mandatory Coursework",
+    public: true,
+    statusLabel: "Coursework · Logic Gates",
+    topic: "Construction and demonstration of fundamental logic gates",
+    summary: "Physical construction and demonstration of basic logic gates (NOT, AND, OR, XOR) to explore core principles of computer hardware and digital circuits.",
+    description: "This project explores the fundamental principles of computer hardware through the physical construction and demonstration of basic logic gates: NOT, AND, OR, and XOR. Using electronic components, we built these gates to understand how logical operations work in digital circuits and how they form the foundation of computing systems.",
+    technologies: ["Digital Logic", "Logic Gates", "Hardware Principles"],
+    videoUrl: "https://youtu.be/vPpGhnXk4eI",
+    videoEmbedUrl: "https://www.youtube-nocookie.com/embed/vPpGhnXk4eI",
+    image: "./assets/images/projects/site1101-project1.png",
+    mediaLabel: "Circuit & Hardware Demonstration",
+    mediaPendingText: "Project circuit photo pending upload: assets/images/projects/site1101-project1.png",
     repoUrl: null,
     demoUrl: null,
-    featured: false
+    featured: true
   },
   {
     id: "site1101-hour-of-code",
     title: "SITE 1101: Hour of Code",
     category: "site1101",
-    categoryLabel: "SITE 1101 Coursework",
-    public: false, // Hidden until details confirmed
-    statusLabel: "Pending Details",
-    summary: "",
-    description: "",
-    technologies: [],
+    categoryLabel: "Mandatory Coursework",
+    public: true,
+    statusLabel: "Coursework · Pending Documentation",
+    topic: "Computer Science Education & Outreach",
+    summary: "Computer science education and outreach initiative completed as part of SITE 1101 coursework.",
+    description: "Documentation and session materials are being prepared for submission. Project details, audience overview, and event media will be updated upon completion.",
+    technologies: ["Computer Science Outreach", "Algorithmic Thinking"],
+    image: "./assets/images/projects/hour-of-code.jpg",
+    mediaLabel: "Session & Outreach Photo",
+    mediaPendingText: "Event photograph pending upload: assets/images/projects/hour-of-code.jpg",
+    isPending: true,
+    pendingNotice: "Project documentation and session media pending final submission.",
     repoUrl: null,
     demoUrl: null,
     featured: false
@@ -99,12 +111,18 @@ export const projectsData = [
     id: "site1101-robotics",
     title: "SITE 1101: Robotics",
     category: "site1101",
-    categoryLabel: "SITE 1101 Coursework",
-    public: false, // Hidden until details confirmed
-    statusLabel: "Pending Details",
-    summary: "",
-    description: "",
-    technologies: [],
+    categoryLabel: "Mandatory Coursework",
+    public: true,
+    statusLabel: "Coursework · Pending Documentation",
+    topic: "Robotics Hardware & Control",
+    summary: "Hands-on robotics hardware and control project completed as part of SITE 1101 coursework.",
+    description: "Hardware specifications, sensor integration, and control logic are being finalized. Documentation and project photographs will be updated upon submission.",
+    technologies: ["Robotics Hardware", "Control Logic"],
+    image: "./assets/images/projects/robotics.jpg",
+    mediaLabel: "Robotics Hardware & Assembly",
+    mediaPendingText: "Robot photograph pending upload: assets/images/projects/robotics.jpg",
+    isPending: true,
+    pendingNotice: "Hardware specifications and project media pending final submission.",
     repoUrl: null,
     demoUrl: null,
     featured: false
@@ -114,7 +132,7 @@ export const projectsData = [
     title: "SITE 1101: Project 2",
     category: "site1101",
     categoryLabel: "SITE 1101 Coursework",
-    public: false, // Incomplete / Hidden
+    public: false, // Incomplete / Hidden by design
     statusLabel: "Incomplete",
     summary: "",
     description: "",
@@ -128,7 +146,7 @@ export const projectsData = [
     title: "SITE 1101: Project 3",
     category: "site1101",
     categoryLabel: "SITE 1101 Coursework",
-    public: false, // Incomplete / Hidden
+    public: false, // Incomplete / Hidden by design
     statusLabel: "Incomplete",
     summary: "",
     description: "",

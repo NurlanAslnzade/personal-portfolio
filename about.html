@@ -54,10 +54,31 @@
       <!-- Section: Biography & Narrative -->
       <section class="section-header">
         <span class="section-tag">Profile &amp; Overview</span>
-        <h1 class="section-title">About Me</h1>
-        <p class="section-desc" style="font-size: var(--font-size-lg); line-height: var(--line-height-relaxed); margin-top: var(--space-4);">
-          Motivated Computer Science student at ADA University with a deep focus on Artificial Intelligence and Machine Learning. Experienced in Python-based development, core data structures, algorithms, and mathematical problem-solving. Committed to establishing a rigorous theoretical foundation and deploying production-level machine learning models.
-        </p>
+        <div class="profile-card-header">
+          <!-- Dedicated Profile Photograph Container -->
+          <div class="profile-avatar-frame" id="profile-avatar-container" role="img" aria-label="Nurlan Aslanzade Profile Representation">
+            <img src="./assets/images/profile.jpg"
+                 alt="Portrait of Nurlan Aslanzade"
+                 id="profile-avatar-img"
+                 class="profile-avatar-img"
+                 onload="this.style.display='block'; document.getElementById('profile-monogram-placeholder').style.display='none';"
+                 onerror="this.style.display='none'; document.getElementById('profile-monogram-placeholder').style.display='flex';">
+            <div id="profile-monogram-placeholder" class="profile-avatar-monogram" aria-hidden="true">
+              <span>NA</span>
+              <span class="profile-avatar-caption">Student</span>
+            </div>
+          </div>
+
+          <div style="flex: 1; min-width: 260px;">
+            <h1 class="section-title" style="margin-bottom: var(--space-2);">About Me</h1>
+            <p style="font-size: var(--font-size-sm); color: var(--color-accent); font-family: var(--font-mono); font-weight: 600; margin-bottom: var(--space-3);">
+              ADA University · Computer Science (2026–2030)
+            </p>
+            <p class="section-desc" style="font-size: var(--font-size-base); line-height: var(--line-height-relaxed);">
+              Motivated Computer Science student at ADA University with a deep focus on Artificial Intelligence and Machine Learning. Experienced in Python-based development, core data structures, algorithms, and mathematical problem-solving. Committed to establishing a rigorous theoretical foundation and deploying production-level machine learning models.
+            </p>
+          </div>
+        </div>
       </section>
 
       <!-- Section: Education -->
