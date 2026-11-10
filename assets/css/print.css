@@ -1,0 +1,65 @@
+/**
+ * print.css - Print Stylesheet for Resume / CV Export
+ */
+
+@media print {
+  body {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .mode-toggle-bar,
+  .interactive-graph-container,
+  .btn,
+  .icon-btn,
+  .no-print {
+    display: none !important;
+  }
+
+  .page-main {
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+
+  .container,
+  .container-narrow {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  a {
+    color: #000000 !important;
+    text-decoration: underline !important;
+  }
+
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+  }
+
+  .card {
+    border: 1px solid #CCCCCC !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    margin-bottom: 12pt;
+    padding: 10pt !important;
+  }
+
+  h1, h2, h3, h4 {
+    color: #000000 !important;
+    page-break-after: avoid;
+  }
+
+  .badge,
+  .tech-tag {
+    border: 1px solid #888888 !important;
+    color: #000000 !important;
+    background: transparent !important;
+  }
+}
