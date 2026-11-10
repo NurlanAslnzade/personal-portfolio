@@ -1,6 +1,6 @@
 /**
  * profile-data.js - Verified Personal & Academic Profile
- * Single Source of Truth for CV & Biography Information
+ * Single Source of Truth for CV, Biography, and Neural Path Milestones
  */
 
 export const profileData = {
@@ -97,5 +97,74 @@ export const profileData = {
       { name: "Azerbaijani", level: "Native" },
       { name: "English", level: "B2 / Upper-Intermediate" }
     ]
-  }
+  },
+
+  neuralPathMilestones: [
+    {
+      id: "node-1",
+      number: "01",
+      badge: "Verified Foundation",
+      badgeClass: "badge-accent",
+      title: "Lyceum & DİM 655",
+      fullTitle: "Heydar Aliyev Lyceum (Academic Foundation)",
+      type: "Verified Academic Milestone",
+      details: "Graduated from Heydar Aliyev Lyceum in Baku, Azerbaijan with two Certificates of Distinction and a DİM score of 655/700.",
+      isGoal: false
+    },
+    {
+      id: "node-2",
+      number: "02",
+      badge: "100% & 90% Merit Awards",
+      badgeClass: "badge-success",
+      title: "Scholarship Programs",
+      fullTitle: "AI Academy & Holberton School (Scholarships)",
+      type: "Verified Competitive Training",
+      details: "Earned a 100% Scholarship at AI Academy (AZCON Holding) studying linear algebra, multivariable calculus, and deep learning, alongside a 90% Scholarship at Holberton School for machine learning software engineering.",
+      isGoal: false
+    },
+    {
+      id: "node-3",
+      number: "03",
+      badge: "BSc Computer Science",
+      badgeClass: "badge-cyan",
+      title: "ADA University",
+      fullTitle: "ADA University (Undergraduate Studies)",
+      type: "Current Academic Journey (2026–2030)",
+      details: "BSc in Computer Science at ADA University focusing on core data structures, algorithms, mathematical problem-solving, and theoretical foundations.",
+      isGoal: false
+    },
+    {
+      id: "node-4",
+      number: "04",
+      badge: "Tabular & Statistical ML",
+      badgeClass: "badge",
+      title: "Applied ML Models",
+      fullTitle: "Applied Machine Learning & Data Explorations",
+      type: "Verified Practical Experience",
+      details: "Developed predictive models including Loan Default Prediction and House Price Prediction, alongside structured exploratory data analysis workflows in Python.",
+      isGoal: false
+    },
+    {
+      id: "node-5",
+      number: "05",
+      badge: "Computer Vision",
+      badgeClass: "badge",
+      title: "Sign Language CV",
+      fullTitle: "Sign Language Computer Vision",
+      type: "Domain Exploration",
+      details: "Computer vision project addressing sign language gesture recognition using Python.",
+      isGoal: false
+    },
+    {
+      id: "node-6",
+      number: "06",
+      badge: "Career Objective",
+      badgeClass: "badge-warning",
+      title: "Production ML Deploy",
+      fullTitle: "Target: Production-Grade ML Engineering",
+      type: "Career Aspiration / Target Goal",
+      details: "Committed to establishing a rigorous theoretical foundation and deploying production-level machine learning models. Note: This is an aspirational career target, not a completed milestone.",
+      isGoal: true
+    }
+  ]
 };
