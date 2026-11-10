@@ -1480,6 +1480,8 @@
       if (e.code === 'Escape') {
         closeInfoModal();
         closeCvViewer();
+        const victoryModal = document.getElementById('victoryModal');
+        if (victoryModal) victoryModal.classList.remove('modal-active');
       }
     });
 
@@ -1566,7 +1568,13 @@
     }
 
     const victoryContactBtn = document.getElementById('victoryContactBtn');
-    if (victoryContactBtn) victoryContactBtn.addEventListener('click', openContactModal);
+    if (victoryContactBtn) {
+      victoryContactBtn.addEventListener('click', () => {
+        const victoryModal = document.getElementById('victoryModal');
+        if (victoryModal) victoryModal.classList.remove('modal-active');
+        openContactModal();
+      });
+    }
 
     // Scoreboard Replay Button
     const victoryReplayBtn = document.getElementById('victoryReplayBtn');
