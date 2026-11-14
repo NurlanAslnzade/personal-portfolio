@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="./assets/css/components.css">
   <link rel="stylesheet" href="./assets/css/responsive.css">
   <link rel="stylesheet" href="./assets/css/motion.css">
+  <link rel="stylesheet" href="./assets/css/pages/home.css">
   <script src="./assets/js/core/contour.js" defer></script>
 </head>
 <body>
@@ -38,7 +39,7 @@
           <li><a href="./index.html" class="nav-link" aria-current="page">Home</a></li>
           <li><a href="./about.html" class="nav-link">About</a></li>
           <li><a href="./projects.html" class="nav-link">Projects</a></li>
-          <li><a href="./resume-game.html" class="nav-link">Résumé</a></li>
+          <li><a href="./resume-game.html" class="nav-link">Resume</a></li>
         </ul>
       </nav>
       <div class="tools">
@@ -52,74 +53,117 @@
   </header>
 
   <!-- Main Content -->
-  <main id="main-content" class="page-main">
-    <div class="container">
-      
-      <!-- Hero Section -->
-      <section class="section-header" style="max-width: 820px; padding: var(--space-8) 0 var(--space-4);">
-        <div style="margin-bottom: var(--space-4);">
-          <span class="badge badge-accent">BSc in Computer Science (2026–2030)</span>
-          <span class="badge badge-cyan" style="margin-left: var(--space-2);">ADA University</span>
-        </div>
-        <h1 style="font-size: var(--font-size-hero); margin-bottom: var(--space-4); line-height: 1.15;">
-          Nurlan Aslanzade
-        </h1>
-        <p style="font-size: var(--font-size-xl); color: var(--color-text-primary); font-weight: 500; margin-bottom: var(--space-4);">
-          CS Student · Aspiring AI & Machine Learning Engineer
-        </p>
-        <p style="font-size: var(--font-size-base); line-height: var(--line-height-relaxed); margin-bottom: var(--space-8);">
-          Motivated Computer Science student at ADA University with a deep focus on Artificial Intelligence and Machine Learning. Experienced in Python-based development, core data structures, algorithms, and mathematical problem-solving. Committed to establishing a rigorous theoretical foundation and deploying production-level machine learning models.
-        </p>
-        <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
-          <a href="./projects.html" class="btn btn-primary">Explore Projects</a>
-          <a href="./resume-game.html" class="btn btn-secondary">Resume & Neural Path</a>
-          <a href="mailto:naslanzada27244@ada.edu.az" class="btn btn-outline">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            Email Contact
-          </a>
-        </div>
-      </section>
-
-      <!-- Key Pillars Overview -->
-      <section style="margin-top: var(--space-12);">
-        <div class="section-header">
-          <span class="section-tag">Academic Foundations & Technical Focus</span>
-          <h2 class="section-title">Core Competencies & Pathways</h2>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
-          
-          <div class="card">
-            <span class="badge badge-accent" style="margin-bottom: var(--space-4);">Education</span>
-            <h3 style="margin-bottom: var(--space-2);">ADA University & Lyceum</h3>
-            <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-4);">
-              Pursuing a Bachelor of Science in Computer Science (2026–2030). Graduate of Heydar Aliyev Lyceum with a DİM score of 655/700 and two Certificates of Distinction.
-            </p>
-            <a href="./about.html" class="btn btn-outline btn-sm">Read Full Background &rarr;</a>
+  <main id="main-content" class="contour-main">
+    <section class="hero" aria-labelledby="hero-name">
+      <div class="hero-field">
+        <svg data-contour="fine" data-descent aria-hidden="true" focusable="false"></svg>
+        <div class="hero-photo">
+          <div class="photo">
+            <div class="fallback" aria-hidden="true"><span>NA</span></div>
+            <img data-photo src="./assets/images/profile.jpg" alt="Portrait of Nurlan Aslanzade" width="176" height="176">
           </div>
-
-          <div class="card">
-            <span class="badge badge-cyan" style="margin-bottom: var(--space-4);">Advanced Programs</span>
-            <h3 style="margin-bottom: var(--space-2);">Scholarships & Training</h3>
-            <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-4);">
-              Awarded a 100% Scholarship at AI Academy (AZCON Holding) covering linear algebra, calculus, and deep learning, plus a 90% Scholarship at Holberton School.
-            </p>
-            <a href="./about.html#honors" class="btn btn-outline btn-sm">View Honors &rarr;</a>
-          </div>
-
-          <div class="card">
-            <span class="badge badge-success" style="margin-bottom: var(--space-4);">Technical Work</span>
-            <h3 style="margin-bottom: var(--space-2);">Machine Learning & CV</h3>
-            <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-4);">
-              Practical explorations in Sign Language Computer Vision, Loan Default Prediction, House Price Prediction, and scientific exploratory data analysis.
-            </p>
-            <a href="./projects.html" class="btn btn-outline btn-sm">Browse Projects &rarr;</a>
-          </div>
-
         </div>
-      </section>
+      </div>
+      <div class="wrap">
+        <div class="hero-body">
+          <p class="where">Computer Science at ADA University, 2026–2030</p>
+          <h1 id="hero-name">Nurlan Aslanzade</h1>
+          <p class="lede">Computer Science student focused on artificial intelligence and machine learning, building toward a career as an ML engineer.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="./projects.html">See projects</a>
+            <a class="btn btn-quiet" href="./resume-game.html">Open resume</a>
+          </div>
+        </div>
+        <p class="hero-caption">Gradient descent on the Rosenbrock function, the classic test of an optimiser.</p>
+      </div>
+    </section>
 
-    </div>
+    <section class="section" aria-labelledby="path-title">
+      <div class="wrap split">
+        <div>
+          <h2 class="section-title" id="path-title">The path so far</h2>
+          <p class="section-sub">Each step built the maths and programming the next one needed.</p>
+        </div>
+        <ol class="path">
+          <li>
+            <h3>Heydar Aliyev Lyceum</h3>
+            <p class="meta">Baku, Azerbaijan</p>
+            <p>Graduated with two Certificates of Distinction.</p>
+            <span class="tag">DİM score 655 / 700</span>
+          </li>
+          <li>
+            <h3>AI Academy and Holberton School</h3>
+            <p class="meta">AI Engineering Program and Machine Learning Program</p>
+            <p>Mathematics for AI, machine learning algorithms and deep learning at AI Academy (AZCON Holding); project-based machine learning at Holberton School.</p>
+            <span class="tag">100% and 90% scholarships</span>
+          </li>
+          <li class="now">
+            <h3>ADA University</h3>
+            <p class="meta">BSc in Computer Science, 2026–2030</p>
+            <p>Data structures, algorithms and the mathematical foundations of computer science.</p>
+          </li>
+          <li class="aim">
+            <h3>Machine learning engineering</h3>
+            <p class="meta">The direction, not yet the title</p>
+            <p>The goal this path is pointed at.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="work-title">
+      <div class="wrap">
+        <div class="split work-head">
+          <h2 class="section-title" id="work-title">Selected work</h2>
+          <p class="section-sub">Coursework for SITE 1101: Principles of Information Systems, then independent machine learning projects.</p>
+        </div>
+
+        <article class="feature" aria-labelledby="home-p1-title">
+          <div class="video-slot">
+            <img src="https://i.ytimg.com/vi/vPpGhnXk4eI/hqdefault.jpg" alt="Three breadboard logic gate circuits from the Team 41 demonstration" width="480" height="360" loading="lazy">
+            <button class="video-play" type="button" data-video="vPpGhnXk4eI" data-title="Team 41 logic gates demonstration">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Play the demo
+            </button>
+          </div>
+          <div>
+            <h3 id="home-p1-title">How does hardware work? Building NOT, AND, OR and XOR gates</h3>
+            <p class="meta sub-meta">SITE 1101 Project 1, Team 41</p>
+            <p>We built the four basic logic gates from physical electronic components to see how logical operations happen in a digital circuit.</p>
+            <a href="./projects.html#project-1">Read about the project</a>
+          </div>
+        </article>
+
+        <ul class="rows">
+          <li><h3>Sign Language Computer Vision</h3><p>Exploring computer vision techniques for recognising sign language gestures.</p><span class="stack">Python, computer vision</span></li>
+          <li><h3>Loan Default Prediction</h3><p>Classifying borrower default risk on tabular data with supervised learning.</p><span class="stack">Python, Scikit-Learn, Pandas, NumPy</span></li>
+        </ul>
+        <p class="more"><a class="btn btn-quiet" href="./projects.html">All projects</a></p>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="game-title">
+      <svg class="band-field" data-contour aria-hidden="true" focusable="false"></svg>
+      <div class="wrap">
+        <div>
+          <h2 id="game-title">The resume, playable</h2>
+          <p>The same resume as a four-world platformer: academics, skills, projects, and a stadium where it ends with a shot on goal.</p>
+        </div>
+        <a class="btn btn-band" href="./resume-game.html#game">Play the resume game</a>
+      </div>
+    </section>
+
+    <section class="section section-contact" aria-labelledby="contact-title">
+      <div class="wrap contact">
+        <div>
+          <h2 class="section-title" id="contact-title">Get in touch</h2>
+          <a class="mail" href="mailto:naslanzada27244@ada.edu.az">naslanzada27244@ada.edu.az</a>
+        </div>
+        <div class="actions">
+          <a class="btn btn-quiet" href="https://github.com/NurlanAslnzade" target="_blank" rel="noopener noreferrer">GitHub<span class="visually-hidden"> (opens in a new tab)</span></a>
+          <a class="btn btn-quiet" href="https://linkedin.com/in/nurlanaslanzada/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Global Footer -->
@@ -136,7 +180,7 @@
             <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./projects.html">Projects</a></li>
-            <li><a href="./resume-game.html">Résumé</a></li>
+            <li><a href="./resume-game.html">Resume</a></li>
           </ul>
         </div>
         <div>
