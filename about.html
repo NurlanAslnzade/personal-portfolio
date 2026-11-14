@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="./assets/css/components.css">
   <link rel="stylesheet" href="./assets/css/responsive.css">
   <link rel="stylesheet" href="./assets/css/motion.css">
+  <link rel="stylesheet" href="./assets/css/pages/about.css">
   <script src="./assets/js/core/contour.js" defer></script>
 </head>
 <body>
@@ -38,7 +39,7 @@
           <li><a href="./index.html" class="nav-link">Home</a></li>
           <li><a href="./about.html" class="nav-link" aria-current="page">About</a></li>
           <li><a href="./projects.html" class="nav-link">Projects</a></li>
-          <li><a href="./resume-game.html" class="nav-link">Résumé</a></li>
+          <li><a href="./resume-game.html" class="nav-link">Resume</a></li>
         </ul>
       </nav>
       <div class="tools">
@@ -52,214 +53,80 @@
   </header>
 
   <!-- Main Content -->
-  <main id="main-content" class="page-main">
-    <div class="container container-narrow">
-
-      <!-- Section: Biography & Narrative -->
-      <section class="section-header">
-        <span class="section-tag">Profile &amp; Overview</span>
-        <div class="profile-card-header">
-          <!-- Dedicated Profile Photograph Container -->
-          <div class="profile-avatar-frame" id="profile-avatar-container" role="img" aria-label="Nurlan Aslanzade Profile Representation">
-            <img src="./assets/images/profile.jpg"
-                 alt="Portrait of Nurlan Aslanzade"
-                 id="profile-avatar-img"
-                 class="profile-avatar-img"
-                 onload="this.style.display='block'; document.getElementById('profile-monogram-placeholder').style.display='none';"
-                 onerror="this.style.display='none'; document.getElementById('profile-monogram-placeholder').style.display='flex';">
-            <div id="profile-monogram-placeholder" class="profile-avatar-monogram" aria-hidden="true">
-              <span>NA</span>
-              <span class="profile-avatar-caption">Student</span>
-            </div>
-          </div>
-
-          <div style="flex: 1; min-width: 260px;">
-            <h1 class="section-title" style="margin-bottom: var(--space-2);">About Me</h1>
-            <p style="font-size: var(--font-size-sm); color: var(--color-accent); font-family: var(--font-mono); font-weight: 600; margin-bottom: var(--space-3);">
-              ADA University · Computer Science (2026–2030)
-            </p>
-            <p class="section-desc" style="font-size: var(--font-size-base); line-height: var(--line-height-relaxed);">
-              Motivated Computer Science student at ADA University with a deep focus on Artificial Intelligence and Machine Learning. Experienced in Python-based development, core data structures, algorithms, and mathematical problem-solving. Committed to establishing a rigorous theoretical foundation and deploying production-level machine learning models.
-            </p>
-          </div>
+  <main id="main-content" class="contour-main">
+    <section class="page-head about-head" aria-labelledby="about-title">
+      <div class="wrap">
+        <div class="photo">
+          <div class="fallback" aria-hidden="true"><span>NA</span></div>
+          <img data-photo src="./assets/images/profile.jpg" alt="Portrait of Nurlan Aslanzade" width="200" height="200">
         </div>
-      </section>
-
-      <!-- Section: Education -->
-      <section style="margin-top: var(--space-12);">
-        <div class="section-header">
-          <span class="section-tag">Academic Background</span>
-          <h2 class="section-title">Education &amp; Specialized Programs</h2>
+        <div>
+          <h1 id="about-title">About me</h1>
+          <p class="where">ADA University, Computer Science, 2026–2030</p>
+          <p class="intro">Computer Science student at ADA University with a deep focus on artificial intelligence and machine learning. Experienced in Python, core data structures, algorithms and mathematical problem-solving.</p>
         </div>
+      </div>
+    </section>
 
-        <div style="display: flex; flex-direction: column; gap: var(--space-6);">
-
-          <article class="card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2);">
-              <h3 style="font-size: var(--font-size-xl);">ADA University</h3>
-              <span class="badge badge-accent">2026–2030</span>
-            </div>
-            <p style="color: var(--color-text-primary); font-weight: 600; margin-bottom: var(--space-2);">
-              Bachelor of Science in Computer Science
-            </p>
-            <p style="font-size: var(--font-size-sm);">
-              Undergraduate program centered on core data structures, algorithms, mathematical problem-solving, and computer science fundamentals.
-            </p>
-          </article>
-
-          <article class="card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2);">
-              <h3 style="font-size: var(--font-size-xl);">AI Academy (AZCON Holding)</h3>
-              <span class="badge badge-success">100% Scholarship</span>
-            </div>
-            <p style="color: var(--color-text-primary); font-weight: 600; margin-bottom: var(--space-2);">
-              AI Engineering Program
-            </p>
-            <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-3);">
-              Intensive training covering key mathematical and computational aspects of artificial intelligence:
-            </p>
-            <ul style="padding-left: var(--space-5); list-style: disc; font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6;">
+    <section class="section" id="education" aria-labelledby="edu-title">
+      <div class="wrap split">
+        <div>
+          <h2 class="section-title" id="edu-title">Education</h2>
+          <p class="section-sub">From the lyceum to university, with two scholarship programmes in between.</p>
+        </div>
+        <ol class="path">
+          <li>
+            <h3>Heydar Aliyev Lyceum</h3>
+            <p class="meta">Secondary education, Baku, Azerbaijan</p>
+            <p>Graduated with two Certificates of Distinction.</p>
+            <span class="tag">DİM score 655 / 700</span>
+          </li>
+          <li>
+            <h3>AI Academy (AZCON Holding)</h3>
+            <p class="meta">AI Engineering Program</p>
+            <ul class="topics">
               <li>Mathematics for AI, including linear algebra and multivariable calculus</li>
-              <li>Machine learning algorithms and optimization</li>
+              <li>Machine learning algorithms and optimisation</li>
               <li>Practical application of deep learning architectures</li>
             </ul>
-          </article>
-
-          <article class="card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2);">
-              <h3 style="font-size: var(--font-size-xl);">Holberton School</h3>
-              <span class="badge badge-success">90% Scholarship</span>
-            </div>
-            <p style="color: var(--color-text-primary); font-weight: 600; margin-bottom: var(--space-2);">
-              Machine Learning Program
-            </p>
-            <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-3);">
-              Collaborative, project-based engineering program emphasizing:
-            </p>
-            <ul style="padding-left: var(--space-5); list-style: disc; font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6;">
+            <span class="tag">100% merit scholarship</span>
+          </li>
+          <li>
+            <h3>Holberton School</h3>
+            <p class="meta">Machine Learning Program</p>
+            <ul class="topics">
               <li>Problem-solving and teamwork in engineering groups</li>
-              <li>Project-based learning adhering to industry coding standards</li>
+              <li>Project-based learning following industry coding standards</li>
             </ul>
-          </article>
+            <span class="tag">90% merit scholarship</span>
+          </li>
+          <li class="now">
+            <h3>ADA University</h3>
+            <p class="meta">BSc in Computer Science, 2026–2030</p>
+            <p>Core data structures, algorithms, mathematical problem-solving and computer science fundamentals.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
 
-          <article class="card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2);">
-              <h3 style="font-size: var(--font-size-xl);">Heydar Aliyev Lyceum</h3>
-              <span class="badge">Baku, Azerbaijan</span>
-            </div>
-            <p style="color: var(--color-text-primary); font-weight: 600; margin-bottom: var(--space-2);">
-              Secondary Education &amp; Academic Honors
-            </p>
-            <ul style="padding-left: var(--space-5); list-style: disc; font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6;">
-              <li>State Examination Center (DİM) score: <strong>655 / 700</strong></li>
-              <li>Graduated with <strong>two Certificates of Distinction</strong></li>
-            </ul>
-          </article>
-
+    <section class="section" id="skills" aria-labelledby="skills-title">
+      <div class="wrap split">
+        <div><h2 class="section-title" id="skills-title">Skills</h2></div>
+        <div class="kit">
+          <div><h3>Programming languages</h3><ul><li>Python</li><li>C++</li><li>SQL</li></ul></div>
+          <div><h3>Machine learning and data</h3><ul><li>NumPy</li><li>Pandas</li><li>Matplotlib</li><li>Seaborn</li><li>Scikit-Learn</li><li>TensorFlow</li><li>Deep learning</li></ul></div>
+          <div><h3>Foundations</h3><ul><li>Data structures and algorithms</li><li>Object-oriented programming</li><li>Linear algebra</li><li>Multivariable calculus</li></ul></div>
+          <div><h3>Tools and databases</h3><ul><li>Git</li><li>GitHub</li><li>Linux shell</li><li>MySQL</li><li>MongoDB</li></ul></div>
+          <div><h3>Spoken languages</h3><ul><li>Azerbaijani, native</li><li>English, B2 upper-intermediate</li></ul></div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Section: Honors & Awards -->
-      <section id="honors" style="margin-top: var(--space-12);">
-        <div class="section-header">
-          <span class="section-tag">Recognitions</span>
-          <h2 class="section-title">Honors &amp; Awards</h2>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4);">
-          
-          <div class="card" style="padding: var(--space-5);">
-            <span class="badge badge-success" style="margin-bottom: var(--space-2);">Merit Award</span>
-            <h4 style="margin-bottom: var(--space-1);">100% Scholarship</h4>
-            <p style="font-size: var(--font-size-sm); color: var(--color-text-muted);">AI Academy (AZCON Holding)</p>
-            <p style="font-size: var(--font-size-xs); margin-top: var(--space-2);">Awarded full merit scholarship for the AI Engineering Program.</p>
-          </div>
-
-          <div class="card" style="padding: var(--space-5);">
-            <span class="badge badge-success" style="margin-bottom: var(--space-2);">Merit Award</span>
-            <h4 style="margin-bottom: var(--space-1);">90% Scholarship</h4>
-            <p style="font-size: var(--font-size-sm); color: var(--color-text-muted);">Holberton School</p>
-            <p style="font-size: var(--font-size-xs); margin-top: var(--space-2);">Awarded competitive merit scholarship for Machine Learning curriculum.</p>
-          </div>
-
-          <div class="card" style="padding: var(--space-5);">
-            <span class="badge badge-accent" style="margin-bottom: var(--space-2);">Distinction</span>
-            <h4 style="margin-bottom: var(--space-1);">DİM 655 / 700</h4>
-            <p style="font-size: var(--font-size-sm); color: var(--color-text-muted);">State Examination Center</p>
-            <p style="font-size: var(--font-size-xs); margin-top: var(--space-2);">Graduated with two Certificates of Distinction from Heydar Aliyev Lyceum.</p>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Section: Technical Skills -->
-      <section style="margin-top: var(--space-12);">
-        <div class="section-header">
-          <span class="section-tag">Verified Competencies</span>
-          <h2 class="section-title">Technical &amp; Language Skills</h2>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: var(--space-6);">
-
-          <div class="card">
-            <h4 style="margin-bottom: var(--space-3); font-size: var(--font-size-base);">Programming Languages</h4>
-            <div class="tag-list">
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">C++</span>
-              <span class="tech-tag">SQL</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <h4 style="margin-bottom: var(--space-3); font-size: var(--font-size-base);">AI &amp; Data Science</h4>
-            <div class="tag-list">
-              <span class="tech-tag">NumPy</span>
-              <span class="tech-tag">Pandas</span>
-              <span class="tech-tag">Matplotlib</span>
-              <span class="tech-tag">Seaborn</span>
-              <span class="tech-tag">Scikit-Learn</span>
-              <span class="tech-tag">TensorFlow</span>
-              <span class="tech-tag">Deep Learning</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <h4 style="margin-bottom: var(--space-3); font-size: var(--font-size-base);">Computer Science &amp; Mathematics Fundamentals</h4>
-            <div class="tag-list">
-              <span class="tech-tag">Data Structures &amp; Algorithms</span>
-              <span class="tech-tag">Object-Oriented Programming (OOP)</span>
-              <span class="tech-tag">Linear Algebra</span>
-              <span class="tech-tag">Multivariable Calculus</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <h4 style="margin-bottom: var(--space-3); font-size: var(--font-size-base);">Tools &amp; Databases</h4>
-            <div class="tag-list">
-              <span class="tech-tag">Git</span>
-              <span class="tech-tag">GitHub</span>
-              <span class="tech-tag">Linux Shell</span>
-              <span class="tech-tag">MySQL</span>
-              <span class="tech-tag">MongoDB</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <h4 style="margin-bottom: var(--space-3); font-size: var(--font-size-base);">Spoken Languages</h4>
-            <div style="display: flex; gap: var(--space-6); flex-wrap: wrap; font-size: var(--font-size-sm);">
-              <div>
-                <strong>Azerbaijani:</strong> <span style="color: var(--color-text-muted);">Native</span>
-              </div>
-              <div>
-                <strong>English:</strong> <span style="color: var(--color-text-muted);">B2 / Upper-Intermediate</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-    </div>
+    <aside class="game-link" aria-label="Playable resume">
+      <div class="wrap">
+        <p>This resume is also a four-world platformer. <a href="./resume-game.html#game">Play the resume game</a></p>
+      </div>
+    </aside>
   </main>
 
   <!-- Global Footer -->
@@ -276,7 +143,7 @@
             <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./projects.html">Projects</a></li>
-            <li><a href="./resume-game.html">Résumé</a></li>
+            <li><a href="./resume-game.html">Resume</a></li>
           </ul>
         </div>
         <div>

@@ -1,0 +1,68 @@
+/* =====================================================================
+   about.css - About page (Contour, M5). Loaded after motion.css.
+   Ported from prototypes/contour-about.html + contour/contour.css.
+   Sections: 1 content base · 2 page head · 3 education path
+             4 skills · 5 game link · 6 responsive
+   ===================================================================== */
+
+/* ---------- 1. Content base for Contour pages (same block as home.css) ---------- */
+:where(.contour-main) p { color: var(--ink); line-height: inherit; }
+:where(.contour-main) :is(h1, h2, h3) { line-height: 1.12; letter-spacing: -0.015em; }
+:where(.contour-main) a:where(:not(.btn)) { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+.section { padding: var(--section) 0; border-top: 1px solid var(--rule); }
+.split { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(var(--s-5), 5vw, var(--s-8)); }
+.section-title { font-size: var(--t-h2); font-weight: 700; margin-bottom: var(--s-3); }
+.section-sub { color: var(--muted); max-width: 34ch; }
+.contour-main .meta { color: var(--muted); }
+
+/* ---------- 2. Page head with photo ---------- */
+.page-head { padding: clamp(var(--s-7), 7vw, var(--s-9)) 0 clamp(var(--s-6), 5vw, var(--s-8)); position: relative; overflow: hidden; }
+.page-head h1 { font-size: var(--t-h1); font-weight: 800; letter-spacing: -0.03em; margin-bottom: var(--s-4); }
+.page-head .intro { font-size: var(--t-lead); line-height: 1.55; max-width: 52ch; }
+.about-head .wrap {
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(var(--s-5), 5vw, var(--s-8)); align-items: center;
+}
+.about-head .photo { --size: 200px; }
+.about-head h1 { margin-bottom: var(--s-2); }
+.contour-main .about-head .where { color: var(--muted); margin-bottom: var(--s-4); }
+
+/* Photo slot without JavaScript: until profile.jpg exists, a broken image's alt text
+   would print over the initials. Hide that text; a real photo still covers the fallback. */
+.photo img { color: transparent; font-size: 0; }
+
+/* ---------- 3. Education: the same path as Home, with honours as tags (A4) ---------- */
+.path { list-style: none; position: relative; }
+.path::before { content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 2px; background: var(--marker); }
+.path > li { position: relative; padding: 0 0 var(--s-6) 40px; }
+.path > li:last-child { padding-bottom: 0; }
+.path > li::before {
+  content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--bg); border: 3px solid var(--marker);
+}
+.path > li.now::before { background: var(--marker); }
+.path h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: var(--s-1); }
+.path .meta { margin-bottom: var(--s-2); }
+.path p { max-width: var(--measure); }
+.path ul.topics { list-style: disc; padding-left: 1.2em; margin-top: var(--s-2); max-width: var(--measure); }
+.path ul.topics li { margin-bottom: 2px; }
+
+/* ---------- 4. Skills ---------- */
+.kit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6) var(--s-7); }
+.kit h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: var(--s-2); letter-spacing: 0; }
+.kit ul { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.kit li { padding: 4px 12px; border: 1px solid var(--rule-strong); border-radius: 999px; font-size: 0.95rem; background: var(--surface); }
+
+/* ---------- 5. Game link: one line on inner pages (B2) ---------- */
+.game-link { border-top: 1px solid var(--rule); padding: var(--s-6) 0; }
+.contour-main .game-link p { color: var(--muted); }
+.game-link a { font-weight: 600; margin-left: var(--s-1); }
+
+/* ---------- 6. Responsive ---------- */
+@media (max-width: 720px) {
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .about-head .wrap { grid-template-columns: minmax(0, 1fr); }
+  .about-head .photo { --size: 144px; }
+  .kit { grid-template-columns: minmax(0, 1fr); }
+}
