@@ -8,27 +8,20 @@ const THEME_STORAGE_KEY = "portfolio_theme_preference";
 export function initTheme() {
   const themeToggleBtn = document.getElementById("theme-toggle");
   const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-  const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
 
-  // Determine initial theme
-  const initialTheme = storedTheme || (systemPrefersLight ? "light" : "dark");
+  // New visitors unconditionally receive Light theme by default;
+  // explicitly saved user preferences ('dark' or 'light') are strictly respected.
+  const initialTheme = storedTheme || "light";
   applyTheme(initialTheme);
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener("click", () => {
-      const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+      const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
       const newTheme = currentTheme === "dark" ? "light" : "dark";
       applyTheme(newTheme);
       localStorage.setItem(THEME_STORAGE_KEY, newTheme);
     });
   }
-
-  // Listen for OS-level theme changes
-  window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
-    if (!localStorage.getItem(THEME_STORAGE_KEY)) {
-      applyTheme(e.matches ? "light" : "dark");
-    }
-  });
 }
 
 function applyTheme(theme) {
