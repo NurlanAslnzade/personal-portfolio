@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Resume of Nurlan Aslanzade - Conventional printable CV and interactive Neural Path milestone exploration.">
-  <title>Resume &amp; Neural Path | Nurlan Aslanzade</title>
+  <meta name="description" content="Resume of Nurlan Aslanzade: a conventional printable CV and a playable resume game.">
+  <title>Resume | Nurlan Aslanzade</title>
 
   <!-- Theme before first paint (no flash), JS flag, page-transition flag -->
   <script>(function(){var r=document.documentElement,s=null;try{s=localStorage.getItem("portfolio_theme_preference")}catch(e){}r.setAttribute("data-theme",s==="dark"?"dark":"light");r.classList.add("js");try{if(sessionStorage.getItem("contour-hero-seen"))r.classList.add("hero-seen")}catch(e){}addEventListener("pagereveal",function(e){var t=e.viewTransition;r.dataset.vt=t?"on":"off";if(t)t.ready.catch(function(){r.dataset.vt="skipped"})})})();</script>
@@ -25,157 +25,9 @@
   <link rel="stylesheet" href="./assets/css/responsive.css">
   <link rel="stylesheet" href="./assets/css/motion.css">
   <link rel="stylesheet" href="./assets/css/game.css">
+  <link rel="stylesheet" href="./assets/css/pages/resume.css">
   <link rel="stylesheet" href="./assets/css/print.css" media="print">
 
-  <style>
-    .conventional-wrapper {
-      max-width: var(--container-narrow-width);
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .mode-toggle-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: var(--space-4);
-      padding: var(--space-3) var(--space-4);
-      background-color: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      margin-bottom: var(--space-8);
-    }
-
-    .mode-selector {
-      display: inline-flex;
-      background-color: var(--color-bg);
-      padding: 3px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--color-border);
-    }
-
-    .mode-toggle-btn {
-      padding: var(--space-2) var(--space-4);
-      font-size: var(--font-size-xs);
-      font-weight: 600;
-      border-radius: var(--radius-sm);
-      color: var(--color-text-secondary);
-      transition: all var(--transition-fast);
-    }
-
-    .mode-toggle-btn.active {
-      background-color: var(--color-accent);
-      color: #FFFFFF;
-    }
-
-    /* Conventional Resume Styling */
-    .resume-sheet {
-      background-color: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: var(--space-10) var(--space-8);
-    }
-
-    .resume-section {
-      margin-bottom: var(--space-8);
-      padding-bottom: var(--space-6);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .resume-section:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-
-    .resume-section-title {
-      font-size: var(--font-size-base);
-      font-family: var(--font-mono);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-accent);
-      margin-bottom: var(--space-4);
-    }
-
-    .resume-entry {
-      margin-bottom: var(--space-5);
-    }
-
-    .resume-entry:last-child {
-      margin-bottom: 0;
-    }
-
-    .resume-entry-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: var(--space-2);
-      margin-bottom: var(--space-1);
-    }
-
-    .resume-entry-title {
-      font-size: var(--font-size-base);
-      font-weight: 600;
-      color: var(--color-text-primary);
-    }
-
-    .resume-entry-date {
-      font-size: var(--font-size-xs);
-      color: var(--color-text-muted);
-      font-family: var(--font-mono);
-    }
-
-    .resume-entry-subtitle {
-      font-size: var(--font-size-sm);
-      color: var(--color-text-secondary);
-      margin-bottom: var(--space-2);
-    }
-
-    /* Neural Path Foundation Grid */
-    .milestone-stepper {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-4);
-      margin-bottom: var(--space-8);
-    }
-
-    .milestone-node-btn {
-      text-align: left;
-      padding: var(--space-4);
-      background-color: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      transition: all var(--transition-fast);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-
-    .milestone-node-btn:hover {
-      border-color: var(--color-accent);
-      background-color: var(--color-surface-hover);
-    }
-
-    .milestone-node-btn.is-selected {
-      border-color: var(--color-accent);
-      box-shadow: 0 0 0 1px var(--color-accent);
-      background-color: var(--color-accent-subtle);
-    }
-
-    .milestone-node-btn.is-goal {
-      border-style: dashed;
-    }
-
-    .node-inspector-panel {
-      background-color: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: var(--space-6);
-      border-left: 4px solid var(--color-accent);
-    }
-  </style>
   <script src="./assets/js/core/contour.js" defer></script>
 </head>
 <body>
@@ -204,181 +56,66 @@
   </header>
 
   <!-- Main Content -->
-  <main id="main-content" class="page-main">
-    <div class="container">
+  <main id="main-content" class="contour-main">
+    <section class="page-head" aria-labelledby="cv-title">
+      <div class="wrap">
+        <h1 id="cv-title">Resume</h1>
+        <p class="intro">Read it as a conventional CV, print it, or play through it as a game.</p>
+      </div>
+    </section>
 
-      <div class="conventional-wrapper">
-        <!-- View Mode Selector -->
-        <div class="mode-toggle-bar no-print">
-          <div class="mode-selector" role="group" aria-label="Choose Resume View Mode">
-            <button class="mode-toggle-btn active" data-mode="conventional" aria-pressed="true">
-              📄 Conventional Resume
-            </button>
-            <button class="mode-toggle-btn" data-mode="neural-path" aria-pressed="false">
-              🎮 Algorithm Odyssey (2D Platformer)
-            </button>
-          </div>
-
-        <div>
-          <button id="print-resume-btn" class="btn btn-secondary btn-sm" aria-label="Print or Save Resume as PDF">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-            Print / PDF
-          </button>
+    <div class="wrap resume-body">
+      <div class="mode-bar">
+        <div class="segmented" role="group" aria-label="Resume view">
+          <button type="button" class="mode-toggle-btn" data-mode="conventional" aria-pressed="true" aria-controls="conventional-resume">Conventional CV</button>
+          <button type="button" class="mode-toggle-btn" data-mode="neural-path" aria-pressed="false" aria-controls="neural-path-foundation" id="game">Playable game</button>
         </div>
+        <button class="btn btn-quiet" type="button" id="print-resume-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+          Print or save as PDF
+        </button>
       </div>
 
-      <!-- VIEW 1: Conventional Printable Resume -->
-      <section id="conventional-resume" class="resume-sheet" aria-label="Standard Curriculum Vitae">
-        
-        <!-- Resume Header -->
-        <header class="resume-section" style="border-bottom: 2px solid var(--color-border); padding-bottom: var(--space-6);">
-          <h1 style="font-size: var(--font-size-3xl); margin-bottom: var(--space-2);">Nurlan Aslanzade</h1>
-          <p style="font-size: var(--font-size-lg); color: var(--color-accent); font-weight: 600; margin-bottom: var(--space-3);">
-            CS Student · Aspiring AI &amp; Machine Learning Engineer
-          </p>
-          <div style="display: flex; flex-wrap: wrap; gap: var(--space-4); font-size: var(--font-size-xs); color: var(--color-text-secondary); font-family: var(--font-mono);">
-            <span>Email: <a href="mailto:naslanzada27244@ada.edu.az">naslanzada27244@ada.edu.az</a></span>
-            <span>GitHub: <a href="https://github.com/NurlanAslnzade" target="_blank" rel="noopener noreferrer">github.com/NurlanAslnzade</a></span>
-            <span>LinkedIn: <a href="https://linkedin.com/in/nurlanaslanzada/" target="_blank" rel="noopener noreferrer">linkedin.com/in/nurlanaslanzada</a></span>
+      <article class="cv" id="conventional-resume" aria-labelledby="cv-name">
+        <header>
+          <h2 id="cv-name">Nurlan Aslanzade</h2>
+          <p>Computer Science student, aspiring AI and machine learning engineer</p>
+          <div class="links">
+            <a href="mailto:naslanzada27244@ada.edu.az">naslanzada27244@ada.edu.az</a>
+            <a href="https://github.com/NurlanAslnzade" target="_blank" rel="noopener noreferrer">github.com/NurlanAslnzade<span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a href="https://linkedin.com/in/nurlanaslanzada/" target="_blank" rel="noopener noreferrer">linkedin.com/in/nurlanaslanzada<span class="visually-hidden"> (opens in a new tab)</span></a>
           </div>
         </header>
-
-        <!-- Professional Summary -->
-        <section class="resume-section">
-          <h2 class="resume-section-title">Professional Summary</h2>
-          <p style="font-size: var(--font-size-sm); line-height: 1.6;">
-            Motivated Computer Science student at ADA University with a deep focus on Artificial Intelligence and Machine Learning. Experienced in Python-based development, core data structures, algorithms, and mathematical problem-solving. Committed to establishing a rigorous theoretical foundation and deploying production-level machine learning models.
-          </p>
+        <section aria-labelledby="cv-sum">
+          <h3 id="cv-sum">Summary</h3>
+          <p class="summary">Computer Science student at ADA University with a deep focus on artificial intelligence and machine learning. Experienced in Python, core data structures, algorithms and mathematical problem-solving.</p>
         </section>
-
-        <!-- Education -->
-        <section class="resume-section">
-          <h2 class="resume-section-title">Education</h2>
-
-          <div class="resume-entry">
-            <div class="resume-entry-header">
-              <span class="resume-entry-title">ADA University</span>
-              <span class="resume-entry-date">2026 – 2030</span>
-            </div>
-            <div class="resume-entry-subtitle">BSc in Computer Science</div>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted);">
-              Undergraduate program emphasizing computer science theory, discrete mathematics, and algorithms.
-            </p>
-          </div>
-
-          <div class="resume-entry">
-            <div class="resume-entry-header">
-              <span class="resume-entry-title">AI Academy (AZCON Holding)</span>
-              <span class="badge badge-success" style="font-size: 0.65rem;">100% Scholarship</span>
-            </div>
-            <div class="resume-entry-subtitle">AI Engineering Program</div>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted);">
-              Topics: Mathematics for AI (linear algebra, multivariable calculus), machine learning algorithms, and deep learning architectures.
-            </p>
-          </div>
-
-          <div class="resume-entry">
-            <div class="resume-entry-header">
-              <span class="resume-entry-title">Holberton School</span>
-              <span class="badge badge-success" style="font-size: 0.65rem;">90% Scholarship</span>
-            </div>
-            <div class="resume-entry-subtitle">Machine Learning Program</div>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted);">
-              Topics: Problem-solving, teamwork, and project-based learning following industry coding standards.
-            </p>
-          </div>
-
-          <div class="resume-entry">
-            <div class="resume-entry-header">
-              <span class="resume-entry-title">Heydar Aliyev Lyceum</span>
-              <span class="resume-entry-date">Baku, Azerbaijan</span>
-            </div>
-            <div class="resume-entry-subtitle">Secondary Education</div>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted);">
-              DİM score: 655/700; graduated with two Certificates of Distinction.
-            </p>
-          </div>
+        <section aria-labelledby="cv-edu">
+          <h3 id="cv-edu">Education</h3>
+          <div class="entry"><b>ADA University</b><span class="when">2026–2030</span><p>BSc in Computer Science: core data structures, algorithms, mathematical problem-solving and computer science fundamentals.</p></div>
+          <div class="entry"><b>AI Academy (AZCON Holding)</b><span class="when">100% merit scholarship</span><p>AI Engineering Program: mathematics for AI (linear algebra, multivariable calculus), machine learning algorithms and optimisation, deep learning architectures.</p></div>
+          <div class="entry"><b>Holberton School</b><span class="when">90% merit scholarship</span><p>Machine Learning Program: problem-solving and teamwork in engineering groups, project-based learning following industry coding standards.</p></div>
+          <div class="entry"><b>Heydar Aliyev Lyceum</b><span class="when">Baku, Azerbaijan</span><p>Secondary education. DİM score 655/700; graduated with two Certificates of Distinction.</p></div>
         </section>
-
-        <!-- Honors & Awards -->
-        <section class="resume-section">
-          <h2 class="resume-section-title">Honors &amp; Awards</h2>
-          <ul style="padding-left: var(--space-5); list-style: disc; font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6;">
-            <li><strong>100% Scholarship:</strong> AI Academy (AZCON Holding) – AI Engineering Program</li>
-            <li><strong>90% Scholarship:</strong> Holberton School – Machine Learning Program</li>
-            <li><strong>High Academic Distinction:</strong> DİM score 655/700 and two Certificates of Distinction</li>
-          </ul>
+        <section aria-labelledby="cv-proj">
+          <h3 id="cv-proj">Projects</h3>
+          <div class="entry"><b>How does hardware work? Logic gates</b><span class="when">SITE 1101 Project 1</span><p>Team 41 coursework for SITE 1101: Principles of Information Systems. Built NOT, AND, OR and XOR gates from physical electronic components.</p></div>
+          <div class="entry"><b>Sign Language Computer Vision</b><span class="when">Computer vision</span><p>Computer vision techniques for detecting and recognising sign language gestures, in Python.</p></div>
+          <div class="entry"><b>Loan Default Prediction</b><span class="when">Supervised learning</span><p>Classification of borrower default risk on tabular data with Scikit-Learn, Pandas and NumPy.</p></div>
+          <div class="entry"><b>House Price Prediction</b><span class="when">Regression</span><p>Feature analysis, data cleaning and a regression model to estimate property prices.</p></div>
+          <div class="entry"><b>Data Analysis and Visualization</b><span class="when">Exploratory analysis</span><p>Distribution and correlation analysis of real-world datasets with Pandas, NumPy, Matplotlib and Seaborn.</p></div>
         </section>
-
-        <!-- Technical Skills -->
-        <section class="resume-section">
-          <h2 class="resume-section-title">Technical Skills</h2>
-          <div style="display: flex; flex-direction: column; gap: var(--space-3); font-size: var(--font-size-xs);">
-            <div>
-              <strong>Programming Languages:</strong> Python, C++, SQL
-            </div>
-            <div>
-              <strong>AI &amp; Data Science:</strong> NumPy, Pandas, Matplotlib, Seaborn, Scikit-Learn, TensorFlow, Deep Learning
-            </div>
-            <div>
-              <strong>CS Fundamentals:</strong> Data Structures &amp; Algorithms, OOP, Linear Algebra, Multivariable Calculus
-            </div>
-            <div>
-              <strong>Tools &amp; Databases:</strong> Git, GitHub, Linux Shell, MySQL, MongoDB
-            </div>
-            <div>
-              <strong>Spoken Languages:</strong> Azerbaijani (Native), English (B2 / Upper-Intermediate)
-            </div>
-          </div>
+        <section aria-labelledby="cv-skills">
+          <h3 id="cv-skills">Skills</h3>
+          <dl>
+            <dt>Programming languages</dt><dd>Python, C++, SQL</dd>
+            <dt>Machine learning and data</dt><dd>NumPy, Pandas, Matplotlib, Seaborn, Scikit-Learn, TensorFlow, deep learning</dd>
+            <dt>Foundations</dt><dd>Data structures and algorithms, object-oriented programming, linear algebra, multivariable calculus</dd>
+            <dt>Tools and databases</dt><dd>Git, GitHub, Linux shell, MySQL, MongoDB</dd>
+            <dt>Spoken languages</dt><dd>Azerbaijani (native), English (B2, upper-intermediate)</dd>
+          </dl>
         </section>
-
-        <!-- Projects Mentioned on CV -->
-        <section class="resume-section">
-          <h2 class="resume-section-title">Projects (Verified CV Entries)</h2>
-
-          <div class="resume-entry">
-            <div class="resume-entry-header">
-              <span class="resume-entry-title">Sign Language Computer Vision</span>
-              <span class="badge" style="font-size: 0.65rem;">Computer Vision</span>
-            </div>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); line-height: 1.5;">
-              Computer vision project exploring sign language gesture detection and recognition using Python.
-            </p>
-          </div>
-
-          <div class="resume-entry">
-            <div class="resume-entry-header">
-              <span class="resume-entry-title">Loan Default Prediction</span>
-              <span class="badge" style="font-size: 0.65rem;">Supervised ML</span>
-            </div>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); line-height: 1.5;">
-              Predictive classification model evaluating borrower default risk through exploratory analysis and Scikit-Learn algorithms.
-            </p>
-          </div>
-
-          <div class="resume-entry">
-            <div class="resume-entry-header">
-              <span class="resume-entry-title">House Price Prediction</span>
-              <span class="badge" style="font-size: 0.65rem;">Regression ML</span>
-            </div>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); line-height: 1.5;">
-              Regression modeling project analyzing real estate characteristics to estimate market property valuation.
-            </p>
-          </div>
-
-          <div class="resume-entry">
-            <div class="resume-entry-header">
-              <span class="resume-entry-title">Data Analysis &amp; Visualization Explorations</span>
-              <span class="badge" style="font-size: 0.65rem;">Analytics</span>
-            </div>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); line-height: 1.5;">
-              Exploratory workflows focusing on statistical distributions, trends, and correlations across datasets.
-            </p>
-          </div>
-        </section>
-
-      </section>
-      </div><!-- /.conventional-wrapper -->
+      </article>
 
       <!-- VIEW 2: Interactive 2D Platformer Resume (Algorithm Odyssey) -->
       <section id="neural-path-foundation" style="display: none;" aria-label="Interactive 2D Platformer Resume: Algorithm Odyssey">

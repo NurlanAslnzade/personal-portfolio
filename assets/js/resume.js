@@ -1,80 +1,68 @@
 /**
- * resume.js - Resume View Mode Toggle & Neural Path Foundation
- * Consumes profile-data.js for interactive milestone inspection.
+ * resume.js - Resume page: CV/game view switch, print, #game deep link
+ *
+ * Markup contract (game.js relies on it, do not rename):
+ *   .mode-toggle-btn[data-mode="conventional"]  shows the CV (#conventional-resume)
+ *   .mode-toggle-btn[data-mode="neural-path"]   shows the game (#neural-path-foundation)
+ * The game's victory "View My CV" button clicks the conventional button.
+ *
+ * Without JavaScript the CV is simply shown and the switch is hidden (resume.css).
  */
 
-import { profileData } from "./data/profile-data.js";
+const GAME_HASH = "#game";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const toggleButtons = document.querySelectorAll(".mode-toggle-btn");
-  const conventionalSection = document.getElementById("conventional-resume");
-  const neuralPathSection = document.getElementById("neural-path-foundation");
+  const buttons = document.querySelectorAll(".mode-toggle-btn[data-mode]");
+  const cv = document.getElementById("conventional-resume");
+  const game = document.getElementById("neural-path-foundation");
   const printButton = document.getElementById("print-resume-btn");
+  if (!cv || !game || !buttons.length) return;
 
-  if (!conventionalSection || !neuralPathSection) return;
+  function setMode(mode, { updateUrl = true } = {}) {
+    const showGame = mode === "neural-path";
+    buttons.forEach((btn) => btn.setAttribute("aria-pressed", String(btn.dataset.mode === mode)));
+    cv.hidden = showGame;
+    game.style.display = showGame ? "block" : "none";
 
-  // Toggle between Conventional CV and Neural Path Mode
-  toggleButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const mode = btn.getAttribute("data-mode");
-      toggleButtons.forEach((b) => {
-        b.classList.remove("active");
-        b.setAttribute("aria-pressed", "false");
-      });
-      btn.classList.add("active");
-      btn.setAttribute("aria-pressed", "true");
-
-      if (mode === "conventional") {
-        conventionalSection.style.display = "block";
-        neuralPathSection.style.display = "none";
-      } else {
-        conventionalSection.style.display = "none";
-        neuralPathSection.style.display = "block";
-      }
-    });
-  });
-
-  // Print CV button
-  if (printButton) {
-    printButton.addEventListener("click", () => {
-      // Ensure conventional view is active for printing
-      conventionalSection.style.display = "block";
-      neuralPathSection.style.display = "none";
-      window.print();
-    });
+    // Keep the address shareable without adding history entries
+    if (updateUrl) {
+      const url = location.pathname + location.search + (showGame ? GAME_HASH : "");
+      if (location.hash !== (showGame ? GAME_HASH : "")) history.replaceState(history.state, "", url);
+    }
   }
 
-  // Neural Path Node Selection using canonical profileData
-  const milestoneButtons = document.querySelectorAll(".milestone-node-btn");
-  const inspectTitle = document.getElementById("inspect-node-title");
-  const inspectType = document.getElementById("inspect-node-type");
-  const inspectDetails = document.getElementById("inspect-node-details");
+  buttons.forEach((btn) => btn.addEventListener("click", () => setMode(btn.dataset.mode)));
 
-  const milestones = profileData.neuralPathMilestones || [];
+  // resume-game.html#game (linked from Home, About and Projects) opens the game view
+  const syncFromHash = () => setMode(location.hash === GAME_HASH ? "neural-path" : "conventional", { updateUrl: false });
+  syncFromHash();
+  window.addEventListener("hashchange", syncFromHash);
 
-  if (milestoneButtons.length > 0 && inspectTitle && inspectDetails) {
-    milestoneButtons.forEach((btn, index) => {
-      btn.addEventListener("click", () => {
-        milestoneButtons.forEach((b) => {
-          b.classList.remove("is-selected");
-          b.setAttribute("aria-selected", "false");
-        });
-        btn.classList.add("is-selected");
-        btn.setAttribute("aria-selected", "true");
+  // Arriving on #game, the browser scrolls (smoothly, per reset.css) to the switch while
+  // the web fonts are still swapping in, which changes the header height and can leave
+  // the switch up to ~100px off. Once the page and fonts have settled, align it exactly,
+  // unless the visitor has already scrolled, typed or tapped.
+  if (location.hash === GAME_HASH) {
+    const target = document.getElementById("game");
+    let visitorMoved = false;
+    const mark = () => { visitorMoved = true; };
+    ["wheel", "touchstart", "pointerdown", "keydown"].forEach((type) =>
+      window.addEventListener(type, mark, { once: true, passive: true }));
+    const align = () => {
+      if (visitorMoved || location.hash !== GAME_HASH || !target) return;
+      target.scrollIntoView({ block: "start", behavior: "instant" });
+    };
+    const afterFonts = () =>
+      (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(align));
+    if (document.readyState === "complete") afterFonts();
+    else window.addEventListener("load", afterFonts, { once: true });
+  }
 
-        // Retrieve data directly from canonical profileData
-        const milestone = milestones[index];
-        if (milestone) {
-          inspectTitle.textContent = milestone.fullTitle;
-          inspectType.textContent = milestone.type;
-          inspectDetails.textContent = milestone.details;
-        } else {
-          // Fallback to HTML data attributes if index mismatch
-          inspectTitle.textContent = btn.getAttribute("data-title") || "";
-          inspectType.textContent = btn.getAttribute("data-type") || "";
-          inspectDetails.textContent = btn.getAttribute("data-desc") || "";
-        }
-      });
+  // Print always prints the CV (print.css also forces it, for Ctrl+P from the game view)
+  if (printButton) {
+    printButton.addEventListener("click", () => {
+      setMode("conventional");
+      window.print();
     });
   }
 });

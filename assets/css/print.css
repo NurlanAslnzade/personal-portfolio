@@ -1,65 +1,59 @@
 /**
- * print.css - Print Stylesheet for Resume / CV Export
+ * print.css - Printable CV (Contour, M7). Linked with media="print" on resume-game.html.
+ *
+ * Prints only the conventional CV, whichever view is on screen: black text on
+ * white, Contour typefaces, section headings in the accent blue. The CV already
+ * shows its contact URLs as text, so links are not expanded.
+ * The game hides itself in print too (game.css §9).
  */
 
 @media print {
-  body {
-    background-color: #FFFFFF !important;
-    color: #000000 !important;
-    font-size: 11pt;
-    line-height: 1.4;
-  }
+  @page { margin: 12mm 14mm; }  /* one page on A4 and US Letter */
 
+  html, body { background: #FFFFFF !important; color: #000000 !important; }
+  body { font-size: 10pt; line-height: 1.4; }
+
+  /* Everything except the CV */
   .site-header,
   .site-footer,
   .skip-link,
-  .mode-toggle-bar,
-  .interactive-graph-container,
-  .btn,
-  .icon-btn,
-  .no-print {
+  .page-head,
+  .mode-bar,
+  #neural-path-foundation {
     display: none !important;
   }
 
-  .page-main {
+  /* The CV prints even when the game view is showing */
+  #conventional-resume,
+  #conventional-resume[hidden] { display: block !important; }
+
+  .resume-body { padding: 0 !important; max-width: none !important; }
+
+  .cv {
+    border: 0 !important;
+    border-radius: 0 !important;
     padding: 0 !important;
-    min-height: auto !important;
-  }
-
-  .container,
-  .container-narrow {
-    max-width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  a {
-    color: #000000 !important;
-    text-decoration: underline !important;
-  }
-
-  a[href^="http"]:after {
-    content: " (" attr(href) ")";
-    font-size: 8pt;
-  }
-
-  .card {
-    border: 1px solid #CCCCCC !important;
-    box-shadow: none !important;
-    page-break-inside: avoid;
-    margin-bottom: 12pt;
-    padding: 10pt !important;
-  }
-
-  h1, h2, h3, h4 {
-    color: #000000 !important;
-    page-break-after: avoid;
-  }
-
-  .badge,
-  .tech-tag {
-    border: 1px solid #888888 !important;
-    color: #000000 !important;
+    max-width: none !important;
     background: transparent !important;
   }
+  .cv, .cv p, .cv dd, .cv dt, .cv b, .cv .when, .cv a, .cv h2 { color: #000000 !important; }
+  .cv .entry p, .cv dd, .cv .when { color: #333333 !important; }
+
+  .cv > header { border-bottom: 1.5pt solid #000000 !important; padding-bottom: 6pt !important; margin-bottom: 4pt !important; }
+  .cv > header h2 { font-size: 22pt !important; margin-bottom: 2pt !important; }
+  .cv .links { gap: 2pt 14pt !important; margin-top: 4pt !important; }
+  .cv a { text-decoration: none !important; }
+
+  .cv section { padding: 6pt 0 !important; border-bottom: 0.75pt solid #BBBBBB !important; }
+  .cv section:last-child { border-bottom: 0 !important; }
+  .cv h3 { color: #1A36A8 !important; font-size: 12pt !important; margin-bottom: 3pt !important; break-after: avoid; page-break-after: avoid; }
+
+  /* A4 is narrower than the 720px breakpoint: keep the two-column desktop layout */
+  .cv .entry { grid-template-columns: minmax(0, 1fr) auto !important; margin-bottom: 5pt !important; break-inside: avoid; page-break-inside: avoid; }
+  .cv .entry .when { font-size: 9pt !important; text-align: right !important; }
+  .cv dl { grid-template-columns: max-content minmax(0, 1fr) !important; gap: 3pt 14pt !important; }
+  .cv dd { margin: 0 !important; }
+
+  /* Never print a half-revealed state */
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
