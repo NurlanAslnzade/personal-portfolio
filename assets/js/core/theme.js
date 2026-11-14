@@ -1,38 +1,64 @@
 /**
- * theme.js - Theme Engine (Dark / Light Mode)
- * Persists preference to localStorage and respects system settings.
+ * theme.js - Theme toggle (light default, dark on request)
+ *
+ * The initial theme is applied by the inline script in each page's <head>,
+ * before first paint, from the same localStorage key used here. That removes
+ * the brief light flash returning dark-theme visitors used to see.
+ * New visitors get Light regardless of OS preference (Milestone 1 decision).
  */
 
 const THEME_STORAGE_KEY = "portfolio_theme_preference";
+const COLOR_FADE_MS = 280; // slightly longer than --color (240ms) so the fade completes
+
+const ICON_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const ICON_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
 
 export function initTheme() {
-  const themeToggleBtn = document.getElementById("theme-toggle");
-  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  const root = document.documentElement;
+  const toggle = document.getElementById("theme-toggle");
 
-  // New visitors unconditionally receive Light theme by default;
-  // explicitly saved user preferences ('dark' or 'light') are strictly respected.
-  const initialTheme = storedTheme || "light";
-  applyTheme(initialTheme);
-
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("click", () => {
-      const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
-      const newTheme = currentTheme === "dark" ? "light" : "dark";
-      applyTheme(newTheme);
-      localStorage.setItem(THEME_STORAGE_KEY, newTheme);
-    });
+  // Fallback in case the <head> script did not run
+  if (!root.getAttribute("data-theme")) {
+    let stored = null;
+    try { stored = localStorage.getItem(THEME_STORAGE_KEY); } catch (e) { /* storage blocked */ }
+    root.setAttribute("data-theme", stored === "dark" ? "dark" : "light");
   }
+
+  paint(toggle);
+  if (!toggle) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let fadeTimer;
+
+  toggle.addEventListener("click", () => {
+    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+
+    // Colours cross-fade for the length of the change only (motion.css §8)
+    root.classList.add("theme-anim");
+    clearTimeout(fadeTimer);
+    fadeTimer = setTimeout(() => root.classList.remove("theme-anim"), COLOR_FADE_MS);
+
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem(THEME_STORAGE_KEY, next); } catch (e) { /* storage blocked */ }
+    paint(toggle);
+
+    // Icon swap: small rotate + fade in (opacity only under reduced motion)
+    const icon = toggle.querySelector("svg");
+    if (icon && icon.animate) {
+      icon.animate(
+        reduceMotion.matches
+          ? [{ opacity: 0 }, { opacity: 1 }]
+          : [{ opacity: 0, transform: "rotate(-40deg) scale(0.9)" }, { opacity: 1, transform: "none" }],
+        { duration: 220, easing: "cubic-bezier(0.23, 1, 0.32, 1)" }
+      );
+    }
+  });
 }
 
-function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-  const themeToggleBtn = document.getElementById("theme-toggle");
-  if (themeToggleBtn) {
-    const isDark = theme === "dark";
-    themeToggleBtn.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
-    themeToggleBtn.setAttribute("title", isDark ? "Switch to light theme" : "Switch to dark theme");
-    themeToggleBtn.innerHTML = isDark
-      ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`
-      : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
-  }
+function paint(toggle) {
+  if (!toggle) return;
+  const dark = document.documentElement.getAttribute("data-theme") === "dark";
+  toggle.innerHTML = dark ? ICON_SUN : ICON_MOON;
+  toggle.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+  toggle.setAttribute("title", dark ? "Switch to light theme" : "Switch to dark theme");
 }

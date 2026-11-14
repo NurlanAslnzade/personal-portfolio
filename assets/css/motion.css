@@ -1,0 +1,133 @@
+/* =====================================================================
+   motion.css - Contour motion layer. Loaded after the other site styles.
+   Every value comes from the motion tokens in variables.css.
+   Rules: transform + opacity only (colour for theme/focus), named
+   properties only, hover gated to real pointers, exits faster than
+   entrances, reduced motion = instant states with colour kept.
+   The résumé game (#neural-path-foundation) is excluded throughout.
+   Sections: 1 page transitions · 2 hero · 3 scroll reveal · 4 focus
+             5 nav underline · 6 buttons · 7 mobile menu · 8 theme change
+             9 reduced motion · 10 print
+   ===================================================================== */
+
+/* ---------- 1. Page transitions (progressive enhancement) ----------
+   Cross-document View Transitions: Chromium 126+ and Safari 18.2+, over
+   http(s) only. Other browsers ignore this and navigate normally.
+   The opt-in itself (@view-transition) is an inline <style> in each page's
+   <head>: on uncached loads an external stylesheet can be applied too late
+   and the transition is aborted. These rules style the transition. */
+.site-header { view-transition-name: site-header; }
+::view-transition-group(site-header) { animation: none; }
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+::view-transition-old(root) { animation: vt-out var(--page-out) var(--ease-out) both; }
+::view-transition-new(root) { animation: vt-in var(--page-in) var(--ease-out) both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; } }
+
+/* ---------- 2. Hero: the one long moment, once per visit (Home, M4) ---------- */
+.js:not(.hero-seen) .hero .c-descent {
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation: c-draw var(--hero) var(--ease-out) 200ms forwards;
+}
+.js:not(.hero-seen) .hero-photo { opacity: 0; animation: c-arrive 360ms var(--ease-out) 1350ms forwards; }
+@keyframes c-draw { to { stroke-dashoffset: 0; } }
+@keyframes c-arrive {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* ---------- 3. Scroll reveal ----------
+   Active only when contour.js adds .reveal-on (JS ran, IntersectionObserver
+   exists, motion allowed). Without it, everything is simply visible. */
+.reveal-on [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-shift));
+  transition: opacity var(--reveal) var(--ease-out), transform var(--reveal) var(--ease-out);
+  transition-delay: var(--d, 0ms);
+}
+.reveal-on [data-reveal].is-in { opacity: 1; transform: none; }
+.reveal-init [data-reveal] { transition: none; }
+
+/* ---------- 4. Focus ring: fades in quickly, never moves ---------- */
+:where(a, button):where(:not(#neural-path-foundation *)) {
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition: outline-color 100ms ease;
+}
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---------- 5. Nav: underline slides in from the left, out to the right ---------- */
+@media (min-width: 761px) {
+  .nav-list a { position: relative; border-radius: 6px; transition: color var(--hover) ease, outline-color 100ms ease; }
+  .nav-list a::after {
+    content: ""; position: absolute; left: var(--s-3); right: var(--s-3); bottom: 3px; height: 2px; border-radius: 2px;
+    background: var(--ink); transform: scaleX(0); transform-origin: right center;
+    transition: transform var(--exit) var(--ease-out);
+  }
+  .nav-list a[aria-current="page"]::after { background: var(--accent); transform: scaleX(1); }
+}
+@media (min-width: 761px) and (hover: hover) and (pointer: fine) {
+  .nav-list a:hover::after { transform: scaleX(1); transform-origin: left center; transition-duration: var(--hover); }
+}
+
+/* ---------- 6. Buttons: 1px lift on hover, press scales down ---------- */
+.btn {
+  transition: transform var(--press) var(--ease-out), background-color var(--hover) ease,
+              border-color var(--hover) ease, color var(--hover) ease, outline-color 100ms ease;
+}
+.icon-btn, .video-play {
+  transition: transform var(--press) var(--ease-out), border-color var(--hover) ease, outline-color 100ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { transform: translateY(-1px); }
+}
+.btn:active { transform: scale(0.97); }
+.icon-btn:active, .video-play:active { transform: scale(0.96); }
+
+/* Cards do not lift on hover: they are not links (decision B5). */
+
+/* ---------- 7. Mobile menu: opens from its button, closes faster ---------- */
+@media (max-width: 760px) {
+  .js .site-nav {
+    transform-origin: top right;
+    transition: opacity var(--exit) var(--ease-out), transform var(--exit) var(--ease-out), visibility 0s linear var(--exit);
+  }
+  .js .site-nav.is-open { transition: opacity var(--ui) var(--ease-out), transform var(--ui) var(--ease-out), visibility 0s; }
+}
+.menu-btn svg path {
+  transform-box: fill-box; transform-origin: center;
+  transition: transform var(--ui) var(--ease-in-out), opacity var(--exit) ease;
+}
+.menu-btn[aria-expanded="true"] .m1 { transform: translateY(5px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] .m2 { opacity: 0; }
+.menu-btn[aria-expanded="true"] .m3 { transform: translateY(-5px) rotate(-45deg); }
+
+/* ---------- 8. Theme change: colours cross-fade, nothing moves ----------
+   theme.js adds .theme-anim for the length of the change only. */
+html.theme-anim body,
+html.theme-anim body *:not(#neural-path-foundation, #neural-path-foundation *),
+html.theme-anim body *:not(#neural-path-foundation, #neural-path-foundation *)::before,
+html.theme-anim body *:not(#neural-path-foundation, #neural-path-foundation *)::after {
+  transition-property: color, background-color, border-color, fill, stroke, outline-color, text-decoration-color !important;
+  transition-duration: var(--color) !important;
+  transition-timing-function: ease !important;
+  transition-delay: 0s !important;
+}
+
+/* ---------- 9. Reduced motion: instant states, colour changes kept ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .hero .c-descent { animation: none !important; stroke-dashoffset: 0 !important; }
+  .js .hero-photo { animation: none !important; opacity: 1 !important; }
+  .reveal-on [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .btn:hover, .btn:active, .icon-btn:active, .video-play:active { transform: none; }
+  .nav-list a::after { transition: none; }
+  .js .site-nav, .js .site-nav.is-open { transform: none !important; transition: visibility 0s, opacity 0s !important; }
+  .menu-btn svg path { transition: none; }
+}
+
+/* ---------- 10. Print: never print hidden reveal states ---------- */
+@media print {
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+}

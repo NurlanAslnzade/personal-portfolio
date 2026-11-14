@@ -1,83 +1,61 @@
 /**
- * responsive.css - Responsive Breakpoints & Mobile Drawer Styles
+ * responsive.css - Breakpoints for the shared shell (header, nav, footer)
+ * Page-level breakpoints arrive with each page's stylesheet in M4–M7.
  */
 
-/* Responsive Media Queries */
+/* ---------- Mobile navigation (≤760px) ---------- */
 
-/* Tablet & Mobile (< 768px) */
-@media (max-width: 768px) {
-  :root {
-    --header-height: 3.75rem;
-  }
-
-  .nav-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Mobile Drawer */
-  .site-nav {
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--color-bg);
-    padding: var(--space-6) var(--space-4);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    border-top: 1px solid var(--color-border);
-    transform: translateY(-120%);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform var(--transition-normal), opacity var(--transition-normal);
-    z-index: 99;
-  }
-
-  .site-nav.is-open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .nav-list {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    gap: var(--space-2);
-  }
-
-  .nav-link {
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--font-size-base);
-    width: 100%;
-  }
-
-  .footer-top {
-    flex-direction: column;
-  }
-
-  .footer-links-group {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+/* Without JavaScript (A1): links stay visible and wrap onto their own row */
+@media (max-width: 760px) {
+  html:not(.js) .site-header .wrap { flex-wrap: wrap; }
+  html:not(.js) .site-nav { order: 3; width: 100%; }
+  html:not(.js) .nav-list { flex-wrap: wrap; }
 }
 
-/* Reduced Motion Preference (Accessibility) */
+/* With JavaScript: links collapse behind the menu button (nav.js) */
+@media (max-width: 760px) {
+  .js .menu-btn { display: inline-grid; }
+  .js .site-nav {
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    top: calc(100% - var(--s-2));
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: var(--s-2);
+    box-shadow: 0 12px 32px rgba(14, 27, 51, 0.14);
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+    visibility: hidden;
+  }
+  .js .site-nav.is-open { opacity: 1; transform: none; visibility: visible; }
+  .js .nav-list { flex-direction: column; gap: 2px; }
+  .js .nav-list a { padding: var(--s-3) var(--s-4); border-radius: var(--radius-sm); font-size: 1.05rem; }
+  .js .nav-list a[aria-current="page"] { background: var(--bg); }
+}
+
+/* ---------- Footer ---------- */
+@media (max-width: 1000px) {
+  .footer-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .footer-grid > :first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .footer-grid a { min-height: 40px; }         /* A10: thumb-sized targets */
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- Reduced motion inside the game ----------
+   The site's own motion handles reduced motion in motion.css (gentler, not
+   zero). The game keeps exactly the behaviour it had before M3. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  #neural-path-foundation *,
+  #neural-path-foundation *::before,
+  #neural-path-foundation *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

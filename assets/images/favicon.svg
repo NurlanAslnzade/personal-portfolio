@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .disc { fill: #F4F7FB; }
+    .ring { fill: none; stroke: #B8700E; stroke-width: 4; }
+    .mono { fill: #2347D6; font: 800 26px/1 "Bricolage Grotesque", "Segoe UI", Arial, sans-serif; letter-spacing: -1px; }
+    @media (prefers-color-scheme: dark) {
+      .disc { fill: #0A1428; }
+      .ring { stroke: #F2B950; }
+      .mono { fill: #8CA6FF; }
+    }
+  </style>
+  <circle class="disc" cx="32" cy="32" r="30"/>
+  <circle class="ring" cx="32" cy="32" r="28"/>
+  <text class="mono" x="32" y="41.5" text-anchor="middle">NA</text>
+</svg>
