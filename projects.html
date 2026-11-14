@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="./assets/css/components.css">
   <link rel="stylesheet" href="./assets/css/responsive.css">
   <link rel="stylesheet" href="./assets/css/motion.css">
+  <link rel="stylesheet" href="./assets/css/pages/projects.css">
 
   <style>
     .filter-bar {
@@ -78,7 +79,7 @@
           <li><a href="./index.html" class="nav-link">Home</a></li>
           <li><a href="./about.html" class="nav-link">About</a></li>
           <li><a href="./projects.html" class="nav-link" aria-current="page">Projects</a></li>
-          <li><a href="./resume-game.html" class="nav-link">Résumé</a></li>
+          <li><a href="./resume-game.html" class="nav-link">Resume</a></li>
         </ul>
       </nav>
       <div class="tools">
@@ -92,58 +93,83 @@
   </header>
 
   <!-- Main Content -->
-  <main id="main-content" class="page-main">
-    <div class="container">
-      
-      <!-- Page Header -->
-      <header class="section-header">
-        <span class="section-tag">Portfolio &amp; Coursework</span>
-        <h1 class="section-title">Projects Showcase</h1>
-        <p class="section-desc">
-          Official academic coursework completed for SITE 1101 at ADA University, alongside supplementary personal projects in machine learning and data science.
-        </p>
-      </header>
+  <main id="main-content" class="contour-main">
+    <section class="page-head" aria-labelledby="proj-title">
+      <div class="wrap">
+        <h1 id="proj-title">Projects</h1>
+        <p class="intro">Coursework for SITE 1101: Principles of Information Systems at ADA University, followed by independent work in machine learning and data analysis.</p>
+      </div>
+    </section>
 
-      <!-- SECTION A: Mandatory SITE 1101 Coursework -->
-      <section aria-labelledby="coursework-heading" style="margin-bottom: var(--space-12);">
-        <div class="section-header" style="margin-bottom: var(--space-6);">
-          <span class="badge badge-accent" style="margin-bottom: var(--space-2);">Section A · Primary Focus</span>
-          <h2 id="coursework-heading" class="section-title">SITE 1101 Academic Coursework</h2>
-          <p class="section-desc">
-            Mandatory coursework projects for SITE 1101 Introduction to Information Systems. These assignments receive primary academic prominence.
-          </p>
+    <section class="section" aria-labelledby="course-title">
+      <div class="wrap">
+        <div class="group-head">
+          <h2 class="section-title" id="course-title">SITE 1101 coursework</h2>
+          <p>Principles of Information Systems. Three projects: Project 1 is documented below; Projects 2 and 3 follow once their write-ups are ready.</p>
         </div>
 
-        <div id="coursework-projects-grid" class="projects-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
-          <!-- Dynamically populated from projectsData (SITE 1101 items) -->
+        <article class="course-feature" id="project-1" aria-labelledby="p1-title">
+          <div class="feature">
+            <div class="video-slot">
+              <img src="https://i.ytimg.com/vi/vPpGhnXk4eI/hqdefault.jpg" alt="Three breadboard logic gate circuits from the Team 41 demonstration" width="480" height="360" loading="lazy">
+              <button class="video-play" type="button" data-video="vPpGhnXk4eI" data-title="Team 41 logic gates demonstration">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Play the demo
+              </button>
+            </div>
+            <div>
+              <h3 id="p1-title">How does hardware work? Construction of NOT, AND, OR and XOR gates</h3>
+              <div class="label-row"><span class="chip done">Completed</span><span class="chip">Project 1</span><span class="chip">Team 41</span></div>
+              <p>This project explores the fundamental principles of computer hardware. Using electronic components, we built the four basic logic gates to understand how logical operations work in digital circuits and how they form the foundation of computing systems.</p>
+              <p class="stack">Digital logic, logic gates, hardware principles</p>
+              <a href="https://youtu.be/vPpGhnXk4eI" target="_blank" rel="noopener noreferrer">Watch on YouTube<span class="visually-hidden"> (opens in a new tab)</span></a>
+            </div>
+          </div>
+        </article>
+
+        <p class="soon-line">Also in SITE 1101 — write-ups in progress: Project 2 (Hour of Code), Project 3 (Robotics).</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="ml-title">
+      <div class="wrap">
+        <div class="group-head">
+          <h2 class="section-title" id="ml-title">Independent machine learning work</h2>
+          <p>Personal projects in computer vision, supervised learning and data analysis.</p>
         </div>
-      </section>
+        <ul class="ml-grid">
+          <li class="ml-card">
+            <h3>Sign Language Computer Vision</h3>
+            <span class="kind">Computer vision</span>
+            <p>Explores computer vision techniques for detecting and recognising sign language gestures.</p>
+            <span class="stack">Python, computer vision</span>
+          </li>
+          <li class="ml-card">
+            <h3>Loan Default Prediction</h3>
+            <span class="kind">Supervised learning</span>
+            <p>Applies data preprocessing, exploratory analysis and supervised learning algorithms to evaluate borrower credit risk on tabular data.</p>
+            <span class="stack">Python, Scikit-Learn, Pandas, NumPy</span>
+          </li>
+          <li class="ml-card">
+            <h3>House Price Prediction</h3>
+            <span class="kind">Regression</span>
+            <p>Feature analysis, data cleaning and a regression model to estimate property prices from real-estate characteristics.</p>
+            <span class="stack">Python, Scikit-Learn, Pandas, Matplotlib</span>
+          </li>
+          <li class="ml-card">
+            <h3>Data Analysis and Visualization</h3>
+            <span class="kind">Exploratory analysis</span>
+            <p>Data inspection, distribution analysis and correlation visualisations on real-world datasets with Python's scientific stack.</p>
+            <span class="stack">Python, Pandas, NumPy, Matplotlib, Seaborn</span>
+          </li>
+        </ul>
+      </div>
+    </section>
 
-      <hr class="section-divider" aria-hidden="true">
-
-      <!-- SECTION B: Supplementary Personal Projects -->
-      <section aria-labelledby="supplementary-heading">
-        <div class="section-header" style="margin-bottom: var(--space-6);">
-          <span class="badge" style="margin-bottom: var(--space-2);">Section B · Supplementary Work</span>
-          <h2 id="supplementary-heading" class="section-title">Supplementary Personal Projects</h2>
-          <p class="section-desc">
-            Independent personal explorations in computer vision, supervised machine learning, and data analytics. These projects supplement the core academic coursework.
-          </p>
-        </div>
-
-        <!-- Category Filter Controls for Supplementary Work -->
-        <nav class="filter-bar" aria-label="Filter supplementary projects by category">
-          <button class="filter-btn active" data-category="all">All Supplementary</button>
-          <button class="filter-btn" data-category="ai-ml">AI &amp; Machine Learning</button>
-          <button class="filter-btn" data-category="data-science">Data Science</button>
-        </nav>
-
-        <div id="supplementary-projects-grid" class="projects-grid">
-          <!-- Dynamically populated from projectsData (non-coursework items) -->
-        </div>
-      </section>
-
-    </div>
+    <aside class="game-link" aria-label="Playable resume">
+      <div class="wrap">
+        <p>This resume is also a four-world platformer. <a href="./resume-game.html#game">Play the resume game</a></p>
+      </div>
+    </aside>
   </main>
 
   <!-- Global Footer -->
@@ -160,7 +186,7 @@
             <li><a href="./index.html">Home</a></li>
             <li><a href="./about.html">About</a></li>
             <li><a href="./projects.html">Projects</a></li>
-            <li><a href="./resume-game.html">Résumé</a></li>
+            <li><a href="./resume-game.html">Resume</a></li>
           </ul>
         </div>
         <div>
@@ -182,6 +208,5 @@
 
   <!-- Core Scripts -->
   <script type="module" src="./assets/js/main.js"></script>
-  <script type="module" src="./assets/js/projects.js"></script>
 </body>
 </html>
