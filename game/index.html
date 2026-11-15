@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Resume game | Nurlan Aslanzade</title>
+  <meta name="description" content="NURLAN runs through four worlds collecting resume items and ends with a penalty.">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:ital,wght@0,400..700;1,400&display=swap">
+  <link rel="stylesheet" href="./game.css">
+</head>
+<!-- Embedded in resume-game.html (iframe) and also playable on its own. The stage fills
+     the window; keyboard keys are captured only while it has focus. -->
+<body class="embed">
+  <section id="stage" class="stage" tabindex="0" aria-label="Resume game. Click or press Enter to focus, then use the arrow keys and Space. Escape pauses.">
+    <div id="game-wrap" class="game-wrap"></div>
+    <div id="hud-root" class="hud-root"></div>
+    <div id="touch" class="touch" aria-hidden="true"></div>
+  </section>
+
+  <noscript><p class="noscript">The game needs JavaScript. The <a href="../resume-game.html" target="_top">conventional CV</a> works without it.</p></noscript>
+
+  <script src="./lib/phaser.min.js"></script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
