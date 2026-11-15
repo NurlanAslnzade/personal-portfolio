@@ -1,8 +1,8 @@
 /**
  * global.css - Base, layout shell, header, navigation and footer (Contour)
  *
- * The résumé game (#neural-path-foundation) keeps its own typography from
- * game.css: base heading rules below exclude it on purpose.
+ * The game view (#neural-path-foundation) holds the game iframe (game/, styled by
+ * game/game.css); base heading rules below exclude it on purpose.
  */
 
 /* ---------- Base ---------- */

@@ -4,8 +4,7 @@
  *
  * 1. Contour tokens: the source of truth for new work (M3 onward).
  * 2. Legacy aliases: the pre-Contour token names, mapped onto Contour values so
- *    existing page content (and the one token game.css reads, --space-8) keeps
- *    rendering until each page migrates in M4–M7.
+ *    existing page content keeps rendering until each page migrates in M4–M7.
  *
  * Light is the default for new visitors (Milestone 1); [data-theme="dark"] overrides.
  * Contrast (WCAG): ink 15.98:1, muted 6.66:1, accent 6.64:1 on --bg (light);

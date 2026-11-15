@@ -4,7 +4,7 @@
  * Prints only the conventional CV, whichever view is on screen: black text on
  * white, Contour typefaces, section headings in the accent blue. The CV already
  * shows its contact URLs as text, so links are not expanded.
- * The game hides itself in print too (game.css §9).
+ * The game view (#neural-path-foundation, an iframe) is hidden below.
  */
 
 @media print {

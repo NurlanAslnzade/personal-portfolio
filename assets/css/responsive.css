@@ -46,16 +46,3 @@
 @media (max-width: 480px) {
   .footer-grid { grid-template-columns: minmax(0, 1fr); }
 }
-
-/* ---------- Reduced motion inside the game ----------
-   The site's own motion handles reduced motion in motion.css (gentler, not
-   zero). The game keeps exactly the behaviour it had before M3. */
-@media (prefers-reduced-motion: reduce) {
-  #neural-path-foundation *,
-  #neural-path-foundation *::before,
-  #neural-path-foundation *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
