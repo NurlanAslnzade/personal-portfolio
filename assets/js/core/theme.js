@@ -8,7 +8,7 @@
  */
 
 const THEME_STORAGE_KEY = "portfolio_theme_preference";
-const COLOR_FADE_MS = 280; // slightly longer than --color (240ms) so the fade completes
+const COLOR_FADE_MS = 440; // slightly longer than --color (400ms) so the fade completes
 
 const ICON_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
 const ICON_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
@@ -49,7 +49,7 @@ export function initTheme() {
         reduceMotion.matches
           ? [{ opacity: 0 }, { opacity: 1 }]
           : [{ opacity: 0, transform: "rotate(-40deg) scale(0.9)" }, { opacity: 1, transform: "none" }],
-        { duration: 220, easing: "cubic-bezier(0.23, 1, 0.32, 1)" }
+        { duration: 320, easing: "cubic-bezier(0.23, 1, 0.32, 1)" } // --ui, --ease-out
       );
     }
   });

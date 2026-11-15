@@ -56,16 +56,19 @@
   /* ---------- Contour: motion (one system for every animation) ---------- */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);      /* entering, feedback */
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);  /* on-screen movement */
-  --press: 140ms;        /* button press */
-  --hover: 180ms;        /* hover, underline in */
-  --exit: 140ms;         /* anything leaving: faster than it arrived */
-  --ui: 220ms;           /* menus, icon swaps */
-  --color: 240ms;        /* theme colour change */
-  --page-out: 160ms;     /* view transition, old page */
-  --page-in: 260ms;      /* view transition, new page */
-  --reveal: 520ms;       /* scroll reveal */
-  --reveal-shift: 12px;
-  --hero: 1500ms;        /* the one long, first-view moment (Home, M4) */
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);     /* gentle ease-out for whole-page fades */
+  --press: 140ms;        /* button press: stays quick */
+  --hover: 260ms;        /* hover, underline in */
+  --exit: 200ms;         /* anything leaving: faster than it arrived */
+  --ui: 320ms;           /* menus, icon swaps */
+  --color: 400ms;        /* theme colour change */
+  --page-out: 260ms;     /* view transition, old page */
+  --page-in: 500ms;      /* view transition, new page */
+  --enter: 700ms;        /* page-load entrance, above the fold */
+  --enter-shift: 10px;
+  --reveal: 850ms;       /* scroll reveal (contour.js REVEAL_MS mirrors this) */
+  --reveal-shift: 16px;
+  --hero: 2200ms;        /* the one long, first-view moment (Home, M4) */
 
   /* ---------- 2. Legacy aliases (pre-Contour names) ---------- */
   --color-bg: var(--bg);

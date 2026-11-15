@@ -20,8 +20,8 @@
 ::view-transition-group(site-header) { animation: none; }
 ::view-transition-old(site-header) { display: none; }
 ::view-transition-new(site-header) { animation: none; }
-::view-transition-old(root) { animation: vt-out var(--page-out) var(--ease-out) both; }
-::view-transition-new(root) { animation: vt-in var(--page-in) var(--ease-out) both; }
+::view-transition-old(root) { animation: vt-out var(--page-out) var(--ease-soft) both; }
+::view-transition-new(root) { animation: vt-in var(--page-in) var(--ease-soft) both; }
 @keyframes vt-out { to { opacity: 0; } }
 @keyframes vt-in { from { opacity: 0; } }
 
@@ -30,12 +30,27 @@
   stroke-dasharray: 1; stroke-dashoffset: 1;
   animation: c-draw var(--hero) var(--ease-out) 200ms forwards;
 }
-.js:not(.hero-seen) .hero-photo { opacity: 0; animation: c-arrive 360ms var(--ease-out) 1350ms forwards; }
 @keyframes c-draw { to { stroke-dashoffset: 0; } }
-@keyframes c-arrive {
-  from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
+
+/* ---------- 2b. Page-load entrance: above-the-fold content, every page ----------
+   Pure CSS, so it starts with the first paint. Gated on .js (set by the inline
+   <head> script) and on motion being allowed: without either, content is simply
+   visible. Header never moves. Order: eyebrow, title, text, actions, photo/CV.
+   Containers animate, not .btn / .hero-photo, which own their transforms.
+   Last item starts at 270ms, so everything is fully in by ~970ms. */
+@media (prefers-reduced-motion: no-preference) {
+  .js :is(.hero-body, .page-head) .where { --enter-d: 0ms; }
+  .js :is(.hero-body, .page-head) h1 { --enter-d: 60ms; }
+  .js :is(.hero-body .lede, .page-head .intro) { --enter-d: 130ms; }
+  .js :is(.hero-body .actions, .resume-body > .mode-bar) { --enter-d: 200ms; }
+  .js :is(.hero .photo, .page-head .photo, .resume-body > .cv) { --enter-d: 270ms; }
+  .js :is(.hero-body, .page-head) :is(.where, h1),
+  .js :is(.hero-body .lede, .page-head .intro, .hero-body .actions, .hero .photo, .page-head .photo),
+  .js .resume-body > :is(.mode-bar, .cv) {
+    animation: c-enter var(--enter) var(--ease-out) var(--enter-d) backwards;
+  }
 }
+@keyframes c-enter { from { opacity: 0; transform: translateY(var(--enter-shift)); } }
 
 /* ---------- 3. Scroll reveal ----------
    Active only when contour.js adds .reveal-on (JS ran, IntersectionObserver
@@ -119,7 +134,6 @@ html.theme-anim body *:not(#neural-path-foundation, #neural-path-foundation *)::
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js .hero .c-descent { animation: none !important; stroke-dashoffset: 0 !important; }
-  .js .hero-photo { animation: none !important; opacity: 1 !important; }
   .reveal-on [data-reveal] { opacity: 1; transform: none; transition: none; }
   .btn:hover, .btn:active, .icon-btn:active, .video-play:active { transform: none; }
   .nav-list a::after { transition: none; }
@@ -130,4 +144,5 @@ html.theme-anim body *:not(#neural-path-foundation, #neural-path-foundation *)::
 /* ---------- 10. Print: never print hidden reveal states ---------- */
 @media print {
   [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .js :is(.hero-body, .page-head, .hero, .resume-body) * { animation: none !important; }
 }

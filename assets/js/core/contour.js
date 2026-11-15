@@ -82,14 +82,14 @@
     try { sessionStorage.setItem("contour-hero-seen", "1"); } catch (e) { /* storage blocked */ }
   }
 
-  /* 4. Scroll reveal: fade + 12px rise, once, light stagger within a batch.
+  /* 4. Scroll reveal: fade + 16px rise, once, ~90ms stagger within a batch.
      Content stays visible if JS fails, IntersectionObserver is missing, or
      motion is reduced. Elements already on screen at load never animate. */
   if ("IntersectionObserver" in window && !reduceMotion.matches) {
     var GROUPS = ".path, .rows, .ml-grid, .kit";
     var SINGLES = ".split > div:first-child, .group-head, .feature, .course-feature, .soon-line, .band .wrap, .contact";
-    var DELAYS = [0, 50, 90, 120, 145, 165, 180];
-    var REVEAL_MS = 520;
+    var DELAYS = [0, 90, 180, 260, 330, 390, 440];
+    var REVEAL_MS = 850; /* matches --reveal */
     var items = [];
     document.querySelectorAll(GROUPS).forEach(function (g) {
       if (g.closest("#neural-path-foundation")) return;
