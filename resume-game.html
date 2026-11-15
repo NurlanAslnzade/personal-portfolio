@@ -24,7 +24,6 @@
   <link rel="stylesheet" href="./assets/css/components.css">
   <link rel="stylesheet" href="./assets/css/responsive.css">
   <link rel="stylesheet" href="./assets/css/motion.css">
-  <link rel="stylesheet" href="./assets/css/game.css">
   <link rel="stylesheet" href="./assets/css/pages/resume.css">
   <link rel="stylesheet" href="./assets/css/print.css" media="print">
 
@@ -117,219 +116,11 @@
         </section>
       </article>
 
-      <!-- VIEW 2: Interactive 2D Platformer Resume (Algorithm Odyssey) -->
-      <section id="neural-path-foundation" style="display: none;" aria-label="Interactive 2D Platformer Resume: Algorithm Odyssey">
-
-        <div class="game-container">
-
-          <!-- Top HUD Navigation -->
-          <div class="game-hud-top">
-
-            <!-- Left: Player Profile Badge & World Pill -->
-            <div class="hud-left-group">
-              <div class="glass-panel hud-badge-panel">
-                <div class="hud-kit-icon">
-                  <span class="hud-kit-num">#10</span>
-                </div>
-                <div>
-                  <div class="hud-player-name" id="hudPlayerName">NURLAN</div>
-                  <div class="hud-location-text">
-                    <span class="hud-ping-dot"></span>
-                    <span id="hudLocation">World 1: Academic World</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Quick World Jump Menu -->
-              <div class="glass-panel world-jump-menu">
-                <button id="wTab0" class="world-tab-btn active-world-tab">1. Academic</button>
-                <button id="wTab1" class="world-tab-btn">2. Skills</button>
-                <button id="wTab2" class="world-tab-btn">3. Projects</button>
-                <button id="wTab3" class="world-tab-btn">
-                  <span>4. Stadium</span>
-                  <span>⚽</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Right: Action Utility Buttons -->
-            <div class="hud-right-group">
-              <button id="openCvBtn" class="glass-panel hud-util-btn hud-util-btn-resume" title="View CV Overview">
-                <span>📄</span>
-                <span>View Resume</span>
-              </button>
-
-              <button id="soundToggle" class="glass-panel hud-util-btn" title="Toggle Sound">
-                <span id="soundIcon">🔊</span>
-              </button>
-
-              <button id="restartBtn" class="glass-panel hud-util-btn hud-util-btn-restart" title="Restart World">
-                <span>↺</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Active Canvas Viewport (960x540 native) -->
-          <canvas id="gameCanvas" width="960" height="540"></canvas>
-
-          <!-- Interactive Prompt Floating Indicator -->
-          <div id="interactPrompt" class="glass-panel">
-            <kbd class="prompt-key-badge">E</kbd>
-            <span id="interactText" class="prompt-label-text">Inspect Milestone</span>
-          </div>
-
-          <!-- Bottom Mobile & Keyboard Controls Bar -->
-          <div class="game-controls-bottom">
-            <!-- Desktop Key Tips -->
-            <div class="glass-panel desktop-key-tips">
-              <div class="tip-group">
-                <span class="tip-label">Move:</span>
-                <kbd class="key-badge key-badge-sky">A</kbd>
-                <kbd class="key-badge key-badge-sky">D</kbd>
-                <span style="color: #64748b;">/</span>
-                <kbd class="key-badge key-badge-sky">←</kbd>
-                <kbd class="key-badge key-badge-sky">→</kbd>
-              </div>
-              <div class="tip-divider"></div>
-              <div class="tip-group">
-                <span class="tip-label">Jump:</span>
-                <kbd class="key-badge key-badge-emerald">Space</kbd>
-                <kbd class="key-badge key-badge-emerald">W</kbd>
-              </div>
-              <div class="tip-divider"></div>
-              <div class="tip-group">
-                <span class="tip-label">Interact/Kick:</span>
-                <kbd class="key-badge key-badge-amber">E</kbd>
-              </div>
-            </div>
-
-            <!-- Mobile On-Screen Touch Buttons -->
-            <div class="mobile-touch-bar">
-              <div class="touch-btn-group">
-                <button id="btnLeft" class="touch-btn glass-panel" aria-label="Move Left">◀</button>
-                <button id="btnRight" class="touch-btn glass-panel" aria-label="Move Right">▶</button>
-              </div>
-              <div class="touch-btn-group">
-                <button id="btnAction" class="touch-btn glass-panel touch-btn-action" aria-label="Interact or Kick">E</button>
-                <button id="btnJump" class="touch-btn glass-panel touch-btn-jump" aria-label="Jump">▲</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- MODAL 1: Interactive Information Inspector -->
-          <div id="infoModal" class="game-modal-backdrop">
-            <div class="glass-card game-modal-dialog">
-              <div class="modal-header-row">
-                <div class="modal-header-info">
-                  <div id="modalIconBox" class="modal-icon-box">🎓</div>
-                  <div>
-                    <span id="modalCategory" class="modal-category-tag">Academic Milestone</span>
-                    <h3 id="modalTitle" class="modal-main-title">Milestone Title</h3>
-                  </div>
-                </div>
-                <button id="closeInfoBtn" class="modal-close-icon-btn" aria-label="Close modal">✕</button>
-              </div>
-
-              <div id="modalContent" class="modal-body-scrollable custom-scroll">
-              </div>
-
-              <div class="modal-footer-row">
-                <span style="color: #64748b; font-size: 11px;">Press <kbd class="key-badge">Esc</kbd> or click close</span>
-                <button id="modalActionBtn" class="modal-action-btn-primary">Continue Exploration →</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- MODAL 2: World 4 Final Stadium Victory Scoreboard -->
-          <div id="victoryModal" class="game-modal-backdrop">
-            <div class="glass-card victory-card-dialog">
-              <div class="victory-ball-avatar">⚽</div>
-              <span class="victory-goal-pill">GOAL SCORED!</span>
-              <h2 class="victory-player-name">NURLAN</h2>
-              <p class="victory-affiliation-text">ADA University</p>
-              <p class="victory-degree-text">BSc in Computer Science (2026–2030)</p>
-
-              <div class="victory-actions-grid">
-                <button id="victoryViewCvBtn" class="victory-btn victory-btn-cv">
-                  <span>📄</span> View My CV
-                </button>
-                <a href="https://github.com/NurlanAslnzade" target="_blank" rel="noopener noreferrer" class="victory-btn victory-btn-github">
-                  <span>🐙</span> GitHub
-                </a>
-                <a href="https://linkedin.com/in/nurlanaslanzada/" target="_blank" rel="noopener noreferrer" class="victory-btn victory-btn-linkedin">
-                  <span>💼</span> LinkedIn
-                </a>
-                <button id="victoryContactBtn" class="victory-btn victory-btn-contact">
-                  <span>✉️</span> Contact
-                </button>
-              </div>
-
-              <button id="victoryReplayBtn" class="victory-replay-btn">Replay Experience ↺</button>
-            </div>
-          </div>
-
-          <!-- MODAL 3: Clean CV / Resume Viewer Modal -->
-          <div id="cvModal" class="game-modal-backdrop">
-            <div class="glass-card cv-viewer-dialog">
-              <div class="modal-header-row">
-                <div>
-                  <h3 style="font-size: 18px; font-weight: 800; color: #fff; margin: 0;">
-                    NURLAN <span style="font-size: 12px; font-weight: 400; color: #94a3b8;">| Curriculum Vitae Overview</span>
-                  </h3>
-                  <p style="font-size: 11px; color: #38bdf8; margin: 2px 0 0 0;">Aspiring AI &amp; Machine Learning Engineer (Baku, Azerbaijan)</p>
-                </div>
-                <button id="closeCvBtn" class="modal-close-icon-btn" aria-label="Close CV viewer">✕</button>
-              </div>
-
-              <div class="modal-body-scrollable custom-scroll">
-                <div class="cv-section-block">
-                  <h4 class="cv-section-title"><span>🏛️</span> Education &amp; Academic Honors</h4>
-                  <ul style="list-style: disc; padding-left: 18px; margin: 0; line-height: 1.6;">
-                    <li><strong>ADA University:</strong> BSc in Computer Science (2026–2030)</li>
-                    <li><strong>State Examination (DİM):</strong> 655 / 700 Points</li>
-                    <li><strong>Heydar Aliyev Lyceum:</strong> High School Diploma with 2 Certificates of Distinction</li>
-                    <li><strong>AI Academy (AZCON Holding):</strong> AI Engineering Program (100% Scholarship)</li>
-                    <li><strong>Holberton School:</strong> Machine Learning Specialization (90% Scholarship)</li>
-                  </ul>
-                </div>
-
-                <div class="cv-section-block">
-                  <h4 class="cv-section-title"><span>⚡</span> Verified Technical Skills</h4>
-                  <div class="cv-skills-grid">
-                    <div><strong style="color: #f1f5f9;">Languages:</strong> Python, C++, SQL</div>
-                    <div><strong style="color: #f1f5f9;">ML / Data:</strong> NumPy, Pandas, Scikit-Learn, TensorFlow</div>
-                    <div><strong style="color: #f1f5f9;">CS Core:</strong> Data Structures &amp; Algorithms, OOP</div>
-                    <div><strong style="color: #f1f5f9;">Math:</strong> Linear Algebra, Multivariable Calculus</div>
-                    <div><strong style="color: #f1f5f9;">Tools:</strong> Git, GitHub, Linux Shell, MySQL, MongoDB</div>
-                    <div><strong style="color: #f1f5f9;">Spoken:</strong> Azerbaijani (Native), English (B2)</div>
-                  </div>
-                </div>
-
-                <div class="cv-section-block">
-                  <h4 class="cv-section-title"><span>🚀</span> Practical Projects &amp; Coursework</h4>
-                  <div class="cv-project-card">
-                    <strong style="color: #fff;">Azerbaijani Sign Language Recognition</strong> (Python, OpenCV, MediaPipe, Deep Learning)
-                    <p style="margin: 2px 0 0 0; color: #94a3b8;">Experimental capstone classifying sign language hand landmarks and dynamic gesture motions.</p>
-                  </div>
-                  <div class="cv-project-card">
-                    <strong style="color: #fff;">Loan Default &amp; House Price Machine Learning Models</strong> (Pandas, Scikit-Learn)
-                    <p style="margin: 2px 0 0 0; color: #94a3b8;">Supervised machine learning, tabular feature preprocessing, and cross-validated predictive analytics.</p>
-                  </div>
-                  <div class="cv-project-card">
-                    <strong style="color: #fff;">SITE 1101: Hardware Logic Gates</strong> (Breadboard circuits)
-                    <p style="margin: 2px 0 0 0; color: #94a3b8;">Built physical electronic circuits demonstrating boolean logic operations (NOT, AND, OR, XOR).</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="modal-footer-row" style="justify-content: flex-end;">
-                <button id="closeCvBtnFooter" class="modal-action-btn-primary">Close Viewer</button>
-              </div>
-            </div>
-          </div>
-
-        </div><!-- /.game-container -->
-
+      <!-- VIEW 2: Playable resume game (game/). The iframe is created only when this view
+           opens and removed when switching back to the CV (assets/js/resume.js). -->
+      <section id="neural-path-foundation" style="display: none;" aria-label="Playable resume game">
+        <div class="game-frame" data-src="./game/index.html" data-title="Resume game: NURLAN runs through four worlds collecting the resume, then takes a penalty"></div>
+        <p class="game-note">Click the game to play: arrow keys or A and D to run, Space to jump, E to read, Esc to pause. <a href="./game/index.html">Open the game on its own page</a></p>
       </section>
 
     </div>
@@ -372,6 +163,5 @@
   <!-- Core Scripts -->
   <script type="module" src="./assets/js/main.js"></script>
   <script type="module" src="./assets/js/resume.js"></script>
-  <script src="./assets/js/game.js"></script>
 </body>
 </html>

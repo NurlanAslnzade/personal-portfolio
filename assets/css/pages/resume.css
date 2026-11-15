@@ -1,10 +1,10 @@
 /* =====================================================================
-   resume.css - Resume page chrome (Contour, M7). Loaded after game.css.
+   resume.css - Resume page chrome (Contour, M7).
    Ported from prototypes/contour-resume.html + contour/contour.css.
-   Styles the page head, the CV/game view switch and the conventional CV.
-   Nothing here targets the game (#neural-path-foundation and its children).
+   Styles the page head, the CV/game view switch, the conventional CV and the frame
+   that holds the game iframe (the game itself is styled by game/game.css).
    Sections: 1 content base · 2 page head · 3 view switch · 4 CV
-             5 no JavaScript · 6 responsive        (print: print.css)
+             5 no JavaScript · 6 responsive · 7 game view   (print: print.css)
    ===================================================================== */
 
 /* ---------- 1. Content base for Contour pages (same block as home.css) ---------- */
@@ -72,3 +72,22 @@ html:not(.js) .mode-bar { display: none; }
   .segmented button { flex: 1; padding-inline: var(--s-2); }
   .mode-bar .btn { width: 100%; }
 }
+
+/* ---------- 7. Game view: responsive 16:9 frame for the game iframe ---------- */
+.game-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 85svh;                       /* short laptop screens: keep the whole game in view */
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #07090d;                     /* the game's own backdrop while it loads */
+}
+.game-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+/* Phones held upright: a 16:9 frame would be ~190px tall. A taller frame lets the game
+   show its picture with the touch controls in their own bar underneath. */
+@media (max-width: 600px) and (orientation: portrait) {
+  .game-frame { aspect-ratio: 3 / 4; }
+}
+.contour-main .game-note { margin-top: var(--s-3); color: var(--muted); font-size: 0.95rem; max-width: var(--measure); }
